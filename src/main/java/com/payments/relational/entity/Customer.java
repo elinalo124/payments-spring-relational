@@ -1,13 +1,7 @@
 package com.payments.relational.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -20,10 +14,22 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable=false)
     private String completeName;
+
+    @Column(nullable=false)
     private String dni;
+
+    @Column(nullable=false)
     private String cuil;
+
+    @Column(nullable=false)
     private String address;
+
+    @Column(nullable=false)
     private String telephone;
+
+    @Column(nullable=false)
     private LocalDate entryDate;
 }
