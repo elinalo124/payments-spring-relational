@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "bank")
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +26,4 @@ public class Bank {
 
     @Column(nullable=false)
     private String telephone;
-
-
 }
