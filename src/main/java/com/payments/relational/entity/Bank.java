@@ -4,6 +4,9 @@ package com.payments.relational.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -14,6 +17,14 @@ public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "customer_bank",
+            joinColumns = @JoinColumn(name = "bank_id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id")
+    )
+    private Set<Customer> customers = new HashSet<>();
 
     @Column(nullable=false)
     private String name;
@@ -26,4 +37,8 @@ public class Bank {
 
     @Column(nullable=false)
     private String telephone;
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+    }
 }

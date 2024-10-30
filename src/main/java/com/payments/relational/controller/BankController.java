@@ -34,4 +34,9 @@ public class BankController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PostMapping("/customers/{customerId}/banks/{bankId}")
+    public void addCustomerToBank(@PathVariable Long customerId, @PathVariable Long bankId) {
+        bankService.addCustomerToBank(customerId, bankId);
+    }
 }

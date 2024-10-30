@@ -21,7 +21,7 @@ public class Customer {
     @ManyToMany(mappedBy = "customers")
     private Set<Bank> banks = new HashSet<>();
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "complete_name")
     private String completeName;
 
     @Column(nullable=false)
@@ -36,6 +36,10 @@ public class Customer {
     @Column(nullable=false)
     private String telephone;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "entry_date")
     private LocalDate entryDate;
+
+    public void addBank(Bank bank) {
+        this.banks.add(bank);
+    }
 }
