@@ -18,8 +18,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(mappedBy = "customers")
+    @ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Bank> banks = new HashSet<>();
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Card> cards;
 
     @Column(nullable=false, name = "complete_name")
     private String completeName;

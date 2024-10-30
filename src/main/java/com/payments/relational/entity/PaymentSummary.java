@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -14,6 +15,16 @@ public class PaymentSummary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id")
+    private Card card;
+
+    @OneToMany(mappedBy = "paymentSummary", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Quota> quotas;
+
+    @OneToMany(mappedBy = "paymentSummary", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PurchaseSinglePayment> singlePayments;
 
     @Column(nullable=false)
     private String code;

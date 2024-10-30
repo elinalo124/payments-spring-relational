@@ -3,6 +3,8 @@ package com.payments.relational.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -12,6 +14,9 @@ public class PurchaseMonthlyPayments extends Purchase{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Quota> quotas;
 
     @Column(nullable=false)
     private float interest;

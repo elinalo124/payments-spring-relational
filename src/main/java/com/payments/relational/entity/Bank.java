@@ -19,13 +19,19 @@ public class Bank {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "customer_bank",
             joinColumns = @JoinColumn(name = "bank_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id")
     )
     private Set<Customer> customers = new HashSet<>();
+
+    @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Card> cards;
+
+    @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Promotion> promotions;
 
     @Column(nullable=false)
     private String name;
