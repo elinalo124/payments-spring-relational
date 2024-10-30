@@ -13,6 +13,6 @@ public class PurchaseSinglePayment extends Purchase{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "store_discount")
     private float storeDiscount;
 }

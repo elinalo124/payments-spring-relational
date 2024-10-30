@@ -13,7 +13,7 @@ public class Financing extends Promotion{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "number_of_quotas")
     private int numberOfQuotas;
 
     @Column(nullable=false)

@@ -18,19 +18,19 @@ public class Promotion {
     @Column(nullable=false)
     private String code;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "promotion_title")
     private String promotionTitle;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "name_store")
     private String nameStore;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "cuit_store")
     private String cuitStore;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "validity_start_date")
     private LocalDate validityStartDate;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "validity_end_date")
     private LocalDate validityEndDate;
 
     private String comments;

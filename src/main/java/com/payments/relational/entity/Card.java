@@ -21,12 +21,12 @@ public class Card {
     @Column(nullable=false)
     private String ccv;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "cardholder_name_in_card")
     private String cardHolderNameInCard;
 
     @Column(nullable=false)
     private LocalDate since;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "expiration_date")
     private LocalDate expirationDate;
 }

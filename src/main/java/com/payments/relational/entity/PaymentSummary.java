@@ -24,15 +24,15 @@ public class PaymentSummary {
     @Column(nullable=false)
     private String year;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "first_expiration")
     private LocalDate firstExpiration;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "second_expiration")
     private LocalDate secondExpiration;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "surcharge_percentage")
     private float surchargePercentage;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "total_price")
     private float totalPrice;
 }

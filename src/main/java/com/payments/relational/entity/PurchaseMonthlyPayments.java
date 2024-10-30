@@ -16,6 +16,6 @@ public class PurchaseMonthlyPayments extends Purchase{
     @Column(nullable=false)
     private float interest;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "number_of_quotas")
     private int numberOfQuotas;
 }

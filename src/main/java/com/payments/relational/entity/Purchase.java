@@ -13,18 +13,18 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "payment_voucher")
     private String paymentVoucher;
 
     @Column(nullable=false)
     private String store;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "cuit_store")
     private String cuitStore;
 
     @Column(nullable=false)
     private float amount;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "final_amount")
     private float finalAmount;
 }
