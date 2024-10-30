@@ -16,6 +16,7 @@ import java.util.Set;
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true, nullable = false)
     private Long id;
 
     @ManyToMany
