@@ -21,9 +21,6 @@ public class Promotion {
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Purchase> purchases;
-
     @Column(nullable=false)
     private String code;
 

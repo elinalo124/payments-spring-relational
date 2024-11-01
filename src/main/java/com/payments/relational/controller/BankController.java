@@ -1,6 +1,8 @@
 package com.payments.relational.controller;
 
 import com.payments.relational.entity.Bank;
+import com.payments.relational.entity.Customer;
+import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.service.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,13 @@ public class BankController {
     }
 
     @PostMapping("/customers/{customerId}/banks/{bankId}")
-    public void addCustomerToBank(@PathVariable Long customerId, @PathVariable Long bankId) {
-        bankService.addCustomerToBank(customerId, bankId);
+    public ResponseEntity<Customer> addCustomerToBank(@PathVariable Long customerId, @PathVariable Long bankId) {
+        try {
+            Customer customer = bankService.addCustomerToBank(customerId, bankId);
+            return ResponseEntity.ok().body(customer);
+        } catch (Exception e) {
+            logger.error("Error adding client to bank", e);
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

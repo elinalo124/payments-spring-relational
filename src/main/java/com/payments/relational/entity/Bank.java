@@ -1,6 +1,7 @@
 package com.payments.relational.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,12 +20,8 @@ public class Bank {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "customer_bank",
-            joinColumns = @JoinColumn(name = "bank_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id")
-    )
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "banks")
     private Set<Customer> customers = new HashSet<>();
 
     @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

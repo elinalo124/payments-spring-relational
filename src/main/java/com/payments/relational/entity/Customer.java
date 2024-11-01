@@ -1,5 +1,6 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    @JsonBackReference
+    @ManyToMany
     private Set<Bank> banks = new HashSet<>();
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -44,5 +46,9 @@ public class Customer {
 
     public void addBank(Bank bank) {
         this.banks.add(bank);
+    }
+
+    public Set<Bank> getBanks() {
+        return banks;
     }
 }
