@@ -45,4 +45,8 @@ public class Bank {
     public void addCustomer(Customer customer) {
         this.customers.add(customer);
     }
+
+    public Long getId() { return this.id; }
+
+    public Set<Customer> getCustomers() { return customers; }
 }

@@ -1,6 +1,7 @@
 package com.payments.relational.controller;
 
 import com.payments.relational.entity.Customer;
+import com.payments.relational.service.BankService;
 import com.payments.relational.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +20,16 @@ public class CustomerController {
 
     Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
+    private final CustomerService customerService;
+
     @Autowired
-    CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     public ResponseEntity<List<Customer>> getCustomers(){
         return ResponseEntity.ok().body(customerService.getCustomers());
     }
-
 
     @PostMapping
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {

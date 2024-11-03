@@ -13,11 +13,14 @@ import java.util.Optional;
 @Service
 public class BankServiceImpl implements BankService {
 
-    @Autowired
-    BankRepository bankRepository;
+    private final BankRepository bankRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    CustomerRepository customerRepository;
+    public BankServiceImpl(BankRepository bankRepository, CustomerRepository customerRepository) {
+        this.bankRepository = bankRepository;
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     public List<Bank> getBanks() {
@@ -51,6 +54,17 @@ public class BankServiceImpl implements BankService {
             return customer;
         }else {
             throw new PaymentsException("There was an error adding the client to the bank");
+        }
+    }
+
+    @Override
+    public List<Customer> getCostumersByBankId(Long bankId) throws PaymentsException {
+        Optional<Bank> bankOptional = bankRepository.findById(bankId);
+        if(bankOptional.isPresent()) {
+            Bank bank = bankOptional.get();
+            return bank.getCustomers().stream().toList();
+        } else {
+            throw new PaymentsException("The bank doesn't exist in the system");
         }
     }
 }

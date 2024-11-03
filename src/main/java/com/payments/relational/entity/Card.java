@@ -44,4 +44,12 @@ public class Card {
 
     @Column(nullable=false, name = "expiration_date")
     private LocalDate expirationDate;
+
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
+    public Bank getBank() {
+        return this.bank;
+    }
 }

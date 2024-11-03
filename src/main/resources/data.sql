@@ -44,3 +44,15 @@ INSERT INTO bank (id, name, cuit, address, telephone) VALUES ('20', 'Banco del C
 INSERT INTO bank (id, name, cuit, address, telephone) VALUES ('21', 'Banco Hipotecario', '30567894321', 'Av. Sarmiento 1400', '1143325695');
 INSERT INTO bank (id, name, cuit, address, telephone) VALUES ('22', 'Banco de San Juan', '30612345679', 'Calle Laprida 333', '1143325696');
 INSERT INTO bank (id, name, cuit, address, telephone) VALUES ('23', 'Banco de La Pampa', '30591234567', 'Av. Libertador 5050', '1143325697');
+
+
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('1234567812345678', '2025-12-31', '123', 1, 1);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('2345678923456789', '2026-06-30', '456', 2, 2);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('3456789034567890', '2027-11-30', '789', 3, 3);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('4567890145678901', '2028-05-31', '012', 4, 4);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('5678901256789012', '2029-10-31', '345', 5, 5);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('6789012367890123', '2030-03-31', '678', 6, 6);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('7890123478901234', '2031-08-31', '901', 7, 7);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('8901234589012345', '2032-02-28', '234', 8, 8);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('9012345690123456', '2033-07-31', '567', 9, 9);
+INSERT INTO card (cardNumber, expiryDate, cvv, customer_id, bank_id) VALUES ('0123456701234567', '2034-12-31', '890', 10, 10);

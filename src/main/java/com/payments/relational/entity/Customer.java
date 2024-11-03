@@ -48,6 +48,8 @@ public class Customer {
         this.banks.add(bank);
     }
 
+    public Long getId() { return this.id; }
+
     public Set<Bank> getBanks() {
         return banks;
     }

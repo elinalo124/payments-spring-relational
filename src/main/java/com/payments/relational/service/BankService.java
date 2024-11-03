@@ -10,4 +10,5 @@ public interface BankService {
     List<Bank> getBanks();
     Bank saveBank(Bank bank);
     Customer addCustomerToBank(Long customerId, Long bankId) throws PaymentsException;
+    List<Customer> getCostumersByBankId(Long bankId) throws PaymentsException;
 }
