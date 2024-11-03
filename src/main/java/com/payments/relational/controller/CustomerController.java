@@ -1,16 +1,12 @@
 package com.payments.relational.controller;
 
 import com.payments.relational.entity.Customer;
-import com.payments.relational.service.BankService;
 import com.payments.relational.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,17 +23,25 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    public ResponseEntity<List<Customer>> getCustomers(){
-        return ResponseEntity.ok().body(customerService.getCustomers());
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+        return customerService.getCustomerById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Customer>> getAllCustomers(){
+        return ResponseEntity.ok().body(customerService.getAllCustomers());
     }
 
     @PostMapping
-    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         try {
-            customerService.saveCustomer(customer);
+            customerService.createCustomer(customer);
             return ResponseEntity.ok().body(customer);
         } catch (Exception e) {
-            logger.error("There was a error saving the Bank information", e);
+            logger.error("There was a error saving the customer information", e);
             return ResponseEntity.badRequest().build();
         }
     }

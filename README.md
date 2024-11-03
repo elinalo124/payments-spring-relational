@@ -2,6 +2,11 @@
 Springboot + Hibernate + MySQL
 
 
+### Missing tasks
+* validar que al agregar una tarjeta que el customer sea cliente del banco, de lo contrario arrojar el errror o agregarlo al banco
+
+
+
 ## Install JDK
 Open terminal and run 
 ```shell

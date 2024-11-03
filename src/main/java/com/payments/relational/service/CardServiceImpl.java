@@ -10,6 +10,7 @@ import com.payments.relational.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,17 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public Card saveCard(Card card) throws PaymentsException {
+    public List<Card> getAllCards() {
+        return cardRepository.findAll();
+    }
+
+    @Override
+    public Optional<Card> getCardById(Long id) {
+        return cardRepository.findById(id);
+    }
+
+    @Override
+    public Card createCard(Card card) throws PaymentsException {
         Optional<Customer> customerOptional = customerRepository.findById(card.getCustomer().getId());
         Optional<Bank> bankOptional = bankRepository.findById(card.getBank().getId());
         if (customerOptional.isPresent() && bankOptional.isPresent()) {

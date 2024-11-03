@@ -2,6 +2,7 @@ package com.payments.relational.controller;
 
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
+import com.payments.relational.entity.Purchase;
 import com.payments.relational.service.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,15 +25,21 @@ public class BankController {
         this.bankService = bankService;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Bank>> getBanks(){
-        return ResponseEntity.ok().body(bankService.getBanks());
+    @GetMapping("/{id}")
+    public ResponseEntity<Bank> getBankById(@PathVariable Long id) {
+        return bankService.getBankById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Bank>> getAllBanks() {
+        return ResponseEntity.ok().body(bankService.getAllBanks());
     }
 
     @PostMapping
-    public ResponseEntity<Bank> saveBank(@RequestBody Bank bank) {
+    public ResponseEntity<Bank> createBank(@RequestBody Bank bank) {
         try {
-            bankService.saveBank(bank);
+            bankService.createBank(bank);
             return ResponseEntity.ok().body(bank);
         } catch (Exception e) {
             logger.error("There was a error saving the Bank information", e);

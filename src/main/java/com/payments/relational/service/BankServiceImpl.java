@@ -5,6 +5,7 @@ import com.payments.relational.entity.Customer;
 import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,12 +24,12 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public List<Bank> getBanks() {
+    public List<Bank> getAllBanks() {
         return bankRepository.findAll();
     }
 
     @Override
-    public Bank saveBank(Bank bank) {
+    public Bank createBank(Bank bank) {
         return bankRepository.save(bank);
     }
 

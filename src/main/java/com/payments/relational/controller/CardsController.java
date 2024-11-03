@@ -1,15 +1,15 @@
 package com.payments.relational.controller;
 
+import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Card;
 import com.payments.relational.service.CardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cards")
@@ -24,10 +24,21 @@ public class CardsController {
         this.cardService = cardService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Card> getCardById(@PathVariable Long id) {
+        return cardService.getCardById(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Card>> getAllCards() {
+        return ResponseEntity.ok().body(cardService.getAllCards());
+    }
+
     @PostMapping
-    public ResponseEntity<Card> saveCard(@RequestBody Card card) {
+    public ResponseEntity<Card> createCard(@RequestBody Card card) {
         try {
-            cardService.saveCard(card);
+            cardService.createCard(card);
             return ResponseEntity.ok().body(card);
         } catch (Exception e) {
             logger.error("There was a error saving the Bank information", e);

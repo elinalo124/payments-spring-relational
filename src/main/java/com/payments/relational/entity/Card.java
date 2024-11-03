@@ -30,20 +30,24 @@ public class Card {
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PaymentSummary> paymentSummaries;
 
-    @Column(nullable=false)
-    private String number;
+    @Column(nullable=false, name = "card_number")
+    private String cardNnumber;
 
     @Column(nullable=false)
-    private String ccv;
+    private String cvv;
 
     @Column(nullable=false, name = "cardholder_name_in_card")
     private String cardHolderNameInCard;
 
-    @Column(nullable=false)
-    private LocalDate since;
+    @Column(nullable=false, name = "since_date")
+    private LocalDate sinceDate;
 
     @Column(nullable=false, name = "expiration_date")
     private LocalDate expirationDate;
+
+    public Long getId() {
+        return this.id;
+    }
 
     public Customer getCustomer() {
         return this.customer;

@@ -32,4 +32,8 @@ public class Purchase {
 
     @Column(nullable=false, name = "final_amount")
     private float finalAmount;
+
+    public Card getCard() {
+        return this.card;
+    }
 }

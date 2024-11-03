@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -18,12 +19,17 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public Optional<Customer> getCustomerById(Long id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public Customer createCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 }
