@@ -2,7 +2,6 @@ package com.payments.relational.controller;
 
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
-import com.payments.relational.entity.Purchase;
 import com.payments.relational.service.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +26,13 @@ public class BankController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Bank> getBankById(@PathVariable Long id) {
-        return bankService.getBankById(id).map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            Bank bank = bankService.getBankById(id);
+            return ResponseEntity.ok().body(bank);
+        } catch (Exception e) {
+            logger.error("There's no bank associated to the id provided", e);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping

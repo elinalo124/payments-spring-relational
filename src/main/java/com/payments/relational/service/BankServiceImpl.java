@@ -5,7 +5,6 @@ import com.payments.relational.entity.Customer;
 import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.CustomerRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -29,6 +28,16 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
+    public Bank  getBankById(Long id) throws PaymentsException {
+        Optional<Bank> bankOptional = bankRepository.findById(id);
+        if(bankOptional.isPresent()) {
+            return bankOptional.get();
+        } else {
+            throw new PaymentsException("The customer is already associated with this bank");
+        }
+    }
+
+    @Override
     public Bank createBank(Bank bank) {
         return bankRepository.save(bank);
     }
@@ -40,8 +49,6 @@ public class BankServiceImpl implements BankService {
         if (customerOptional.isPresent() && bankOptional.isPresent()) {
             Customer customer = customerOptional.get();
             Bank bank = bankOptional.get();
-
-
             if (customer.getBanks().contains(bank)) {
                 throw new PaymentsException("The customer is already associated with this bank");
             } else {
