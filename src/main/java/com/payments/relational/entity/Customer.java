@@ -1,6 +1,5 @@
 package com.payments.relational.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,39 +15,37 @@ import java.util.Set;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-
-    @JsonBackReference
-    @ManyToMany
-    private Set<Bank> banks = new HashSet<>();
-
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Card> cards;
 
     @Column(nullable=false, name = "complete_name")
     private String completeName;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "dni")
     private String dni;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "cuil")
     private String cuil;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "address")
     private String address;
 
-    @Column(nullable=false)
+    @Column(nullable=false, name = "telephone")
     private String telephone;
 
     @Column(nullable=false, name = "entry_date")
     private LocalDate entryDate;
 
+    @ManyToMany(mappedBy = "customers")
+    private Set<Bank> banks = new HashSet<>();
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Card> cards;
+
     public void addBank(Bank bank) {
         this.banks.add(bank);
     }
-
-    public Long getId() { return this.id; }
 
     public Set<Bank> getBanks() {
         return banks;

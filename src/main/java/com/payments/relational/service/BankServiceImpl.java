@@ -28,7 +28,7 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Bank  getBankById(Long id) throws PaymentsException {
+    public Bank getBankById(Long id) throws PaymentsException {
         Optional<Bank> bankOptional = bankRepository.findById(id);
         if(bankOptional.isPresent()) {
             return bankOptional.get();

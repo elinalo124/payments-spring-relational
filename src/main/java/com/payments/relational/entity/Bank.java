@@ -1,27 +1,39 @@
 package com.payments.relational.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "bank")
 public class Bank {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "banks")
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "cuit")
+    private String cuit;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "telephone")
+    private String telephone;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "customer_banking", joinColumns = @JoinColumn(name = "bank_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    )
     private Set<Customer> customers = new HashSet<>();
 
     @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -30,23 +42,7 @@ public class Bank {
     @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Promotion> promotions;
 
-    @Column(nullable=false)
-    private String name;
-
-    @Column(nullable=false)
-    private String cuit;
-
-    @Column(nullable=false)
-    private String address;
-
-    @Column(nullable=false)
-    private String telephone;
-
     public void addCustomer(Customer customer) {
         this.customers.add(customer);
     }
-
-    public Long getId() { return this.id; }
-
-    public Set<Customer> getCustomers() { return customers; }
 }

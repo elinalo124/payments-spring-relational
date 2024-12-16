@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -24,13 +23,14 @@ public class BankController {
         this.bankService = bankService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Bank> getBankById(@PathVariable Long id) {
+
+    @PostMapping
+    public ResponseEntity<Bank> createBank(@RequestBody Bank bank) {
         try {
-            Bank bank = bankService.getBankById(id);
+            bankService.createBank(bank);
             return ResponseEntity.ok().body(bank);
         } catch (Exception e) {
-            logger.error("There's no bank associated to the id provided", e);
+            logger.error("There was a error saving the Bank information", e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -40,13 +40,13 @@ public class BankController {
         return ResponseEntity.ok().body(bankService.getAllBanks());
     }
 
-    @PostMapping
-    public ResponseEntity<Bank> createBank(@RequestBody Bank bank) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Bank> getBankById(@PathVariable Long id) {
         try {
-            bankService.createBank(bank);
+            Bank bank = bankService.getBankById(id);
             return ResponseEntity.ok().body(bank);
         } catch (Exception e) {
-            logger.error("There was a error saving the Bank information", e);
+            logger.error("There's no bank associated to the id provided", e);
             return ResponseEntity.badRequest().build();
         }
     }
