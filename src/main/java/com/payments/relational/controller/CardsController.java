@@ -1,6 +1,6 @@
 package com.payments.relational.controller;
 
-import com.payments.relational.entity.Bank;
+import com.payments.relational.dto.CardDTO;
 import com.payments.relational.entity.Card;
 import com.payments.relational.service.CardService;
 import org.slf4j.Logger;
@@ -36,9 +36,9 @@ public class CardsController {
     }
 
     @PostMapping
-    public ResponseEntity<Card> createCard(@RequestBody Card card) {
+    public ResponseEntity<Card> createCard(@RequestBody CardDTO cardDTO) {
         try {
-            cardService.createCard(card);
+            Card card = cardService.createCard(cardDTO);
             return ResponseEntity.ok().body(card);
         } catch (Exception e) {
             logger.error("There was a error saving the Bank information", e);

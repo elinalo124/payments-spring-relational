@@ -1,5 +1,6 @@
 package com.payments.relational.service;
 
+import com.payments.relational.dto.CardDTO;
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Card;
 import com.payments.relational.entity.Customer;
@@ -9,7 +10,6 @@ import com.payments.relational.repository.CardRepository;
 import com.payments.relational.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -38,14 +38,22 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public Card createCard(Card card) throws PaymentsException {
-        Optional<Customer> customerOptional = customerRepository.findById(card.getCustomer().getId());
-        Optional<Bank> bankOptional = bankRepository.findById(card.getBank().getId());
-        if (customerOptional.isPresent() && bankOptional.isPresent()) {
-            cardRepository.save(card);
-        } else {
-            throw new PaymentsException("The bank or the client doesn't exist in the system");
-        }
-        return null;
+    public Card createCard(CardDTO cardDTO) {
+        Bank bank =  bankRepository
+                .findById(cardDTO.getBankId())
+                .orElseThrow(() -> new PaymentsException("Bank with ID " + cardDTO.getBankId() + " not found"));
+        Customer customer = customerRepository
+                .findById(cardDTO.getCustomerId())
+                .orElseThrow(() -> new PaymentsException("Customer with ID " + cardDTO.getCustomerId() + " not found"));
+
+        Card card = new Card();
+        card.setCardNumber(cardDTO.getCardNumber());
+        card.setCvv(cardDTO.getCvv());
+        card.setCardHolderNameInCard(cardDTO.getCardHolderNameInCard());
+        card.setSinceDate(cardDTO.getSinceDate());
+        card.setExpirationDate(cardDTO.getExpirationDate());
+        card.setBank(bank);
+        card.setCustomer(customer);
+        return cardRepository.save(card);
     }
 }

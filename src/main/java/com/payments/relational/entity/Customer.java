@@ -1,5 +1,7 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,9 +40,11 @@ public class Customer {
     private LocalDate entryDate;
 
     @ManyToMany(mappedBy = "customers")
+    @JsonIgnore
     private Set<Bank> banks = new HashSet<>();
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Card> cards;
 
     public void addBank(Bank bank) {
