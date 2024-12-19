@@ -4,18 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@DiscriminatorValue("FINANCING")
 public class Financing extends Promotion{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(nullable=false, name = "number_of_quotas")
+    @Column(name = "number_of_quotas")
     private int numberOfQuotas;
 
-    @Column(nullable=false)
+    @Column()
     private float interest;
 }

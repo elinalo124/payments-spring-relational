@@ -1,43 +1,43 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Promotion {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "promotion_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Promotion {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bank_id")
-    private Bank bank;
-
-    @Column(nullable=false)
+    @Column()
     private String code;
 
-    @Column(nullable=false, name = "promotion_title")
+    @Column(name = "promotion_title")
     private String promotionTitle;
 
-    @Column(nullable=false, name = "name_store")
+    @Column(name = "name_store")
     private String nameStore;
 
-    @Column(nullable=false, name = "cuit_store")
+    @Column(name = "cuit_store")
     private String cuitStore;
 
-    @Column(nullable=false, name = "validity_start_date")
+    @Column(name = "validity_start_date")
     private LocalDate validityStartDate;
 
-    @Column(nullable=false, name = "validity_end_date")
+    @Column(name = "validity_end_date")
     private LocalDate validityEndDate;
 
     private String comments;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bank_id")
+    @JsonIgnore
+    private Bank bank;
 }

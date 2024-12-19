@@ -63,3 +63,11 @@ EXIT;
 
 1. Restart your Spring Boot application.
 2.	If everything is configured correctly, the application should connect to MySQL and create tables as needed.
+
+
+
+## Promotions
+- *InheritanceType.SINGLE_TABLE* Fue seleccionada para evitar joins a la hora de recuperar las entidades
+-  Relations:
+  - Promotion -> Bank
+    - Type: Many to One, fetchtype: yo escogeri lazy, por perfomance ya que no siempre que se haga fetch del banco se necita inmediatamente la información de las promociones, Ownership: Bank, 

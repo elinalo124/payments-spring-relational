@@ -1,5 +1,6 @@
 package com.payments.relational.controller;
 
+import com.payments.relational.dto.BankDTO;
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
 import com.payments.relational.service.BankService;
@@ -23,12 +24,11 @@ public class BankController {
         this.bankService = bankService;
     }
 
-
     @PostMapping
-    public ResponseEntity<Bank> createBank(@RequestBody Bank bank) {
+    public ResponseEntity<BankDTO> saveBank(@RequestBody BankDTO bankDTO) {
         try {
-            bankService.createBank(bank);
-            return ResponseEntity.ok().body(bank);
+            bankService.saveBank(bankDTO);
+            return ResponseEntity.ok().body(bankDTO);
         } catch (Exception e) {
             logger.error("There was a error saving the Bank information", e);
             return ResponseEntity.badRequest().build();
