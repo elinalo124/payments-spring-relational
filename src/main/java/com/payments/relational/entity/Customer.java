@@ -10,8 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "customer")
@@ -21,37 +20,28 @@ public class Customer {
     @Column(name = "id")
     private Long id;
 
-    @Column(nullable=false, name = "complete_name")
+    @Column(name = "complete_name")
     private String completeName;
 
-    @Column(nullable=false, name = "dni")
+    @Column(name = "dni")
     private String dni;
 
     @Column(nullable=false, name = "cuil")
     private String cuil;
 
-    @Column(nullable=false, name = "address")
+    @Column(name = "address")
     private String address;
 
-    @Column(nullable=false, name = "telephone")
+    @Column(name = "telephone")
     private String telephone;
 
-    @Column(nullable=false, name = "entry_date")
+    @Column(name = "entry_date")
     private LocalDate entryDate;
 
-    @ManyToMany(mappedBy = "customers")
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "customer_banking", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "bank_id", referencedColumnName = "id")
+    )
     private Set<Bank> banks = new HashSet<>();
-
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Set<Card> cards;
-
-    public void addBank(Bank bank) {
-        this.banks.add(bank);
-    }
-
-    public Set<Bank> getBanks() {
-        return banks;
-    }
 }

@@ -1,6 +1,5 @@
 package com.payments.relational.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,23 +13,26 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id")
-    @JsonBackReference
-    private Card card;
-
-    @Column(nullable=false, name = "payment_voucher")
+    @Column(name = "payment_voucher", nullable=false)
     private String paymentVoucher;
 
     @Column(nullable=false)
     private String store;
 
-    @Column(nullable=false, name = "cuit_store")
+    @Column(name = "cuit_store", nullable=false)
     private String cuitStore;
 
     @Column(nullable=false)
     private float amount;
 
-    @Column(nullable=false, name = "final_amount")
+    @Column(name = "final_amount", nullable=false)
     private float finalAmount;
+
+    @ManyToOne
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
+    private Card card;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "promotion_id", referencedColumnName = "id")
+    private Promotion validPromotion;
 }

@@ -4,19 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseSinglePayment extends Purchase{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_summary_id")
-    private PaymentSummary paymentSummary;
-
-    @Column(nullable=false, name = "store_discount")
+    @Column(name = "store_discount")
     private float storeDiscount;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private PaymentSummary cashPayments;
 }

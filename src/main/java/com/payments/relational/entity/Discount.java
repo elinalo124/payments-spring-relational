@@ -7,7 +7,6 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@DiscriminatorValue("DISCOUNT")
 public class Discount extends Promotion{
     @Column(name = "discount_percentage")
     private float discountPercentage;

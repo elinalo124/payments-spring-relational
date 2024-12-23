@@ -1,7 +1,5 @@
 package com.payments.relational.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -16,36 +14,27 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "card_number")
+    @Column(name = "card_number", nullable = false, unique = true)
     private String cardNumber;
 
-    @Column()
+    @Column(nullable = false, length = 3)
     private String cvv;
 
-    @Column(name = "card_holder_name_in_card")
+    @Column(name = "card_holder_name", nullable = false)
     private String cardHolderNameInCard;
 
-    @Column(name = "since_date")
+    @Column(name = "since_date", nullable = false)
     private LocalDate sinceDate;
 
-    @Column(name = "expiration_date")
+    @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bank_id")
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Bank bank;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    @JsonBackReference
-    private Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Customer cardHolder;
 
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Purchase> purchases;
-
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Set<PaymentSummary> paymentSummaries;
 }

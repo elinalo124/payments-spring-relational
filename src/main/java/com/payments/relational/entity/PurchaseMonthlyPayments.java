@@ -6,21 +6,21 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseMonthlyPayments extends Purchase{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Quota> quotas;
-
-    @Column(nullable=false)
+    @Column(nullable = false)
     private float interest;
 
-    @Column(nullable=false, name = "number_of_quotas")
+    @Column(name = "number_of_quotas", nullable = false)
     private int numberOfQuotas;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "purchase_monthly_payments_id", referencedColumnName = "id")
+    private Set<Quota> quotas;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "payment_summary_id", referencedColumnName = "id")
+    private PaymentSummary quotasPayments;
 }

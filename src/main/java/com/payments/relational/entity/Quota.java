@@ -4,22 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Quota {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_summary_id")
-    private PaymentSummary paymentSummary;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "purchase_id")
-    private PurchaseMonthlyPayments purchase;
 
     @Column(nullable=false)
     private int number;
@@ -32,4 +23,9 @@ public class Quota {
 
     @Column(nullable=false)
     private String year;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "purchase_monthly_payments_id", referencedColumnName = "id")
+    private PurchaseMonthlyPayments purchase;
+
 }
