@@ -19,8 +19,4 @@ public class PurchaseMonthlyPayments extends Purchase{
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "purchase_monthly_payments_id", referencedColumnName = "id")
     private Set<Quota> quotas;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "payment_summary_id", referencedColumnName = "id")
-    private PaymentSummary quotasPayments;
 }

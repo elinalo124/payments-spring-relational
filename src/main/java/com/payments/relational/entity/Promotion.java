@@ -36,7 +36,7 @@ public abstract class Promotion {
     @Column
     private String comments;
 
-    @OneToMany(mappedBy = "validPromotion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "validPromotion")
     private Set<Purchase> purchases;
 
 }

@@ -29,7 +29,12 @@ public class Bank {
     @Column(name = "telephone")
     private String telephone;
 
-    @ManyToMany(mappedBy = "banks")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "bank_customer",
+            joinColumns = @JoinColumn(name = "bank_id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id")
+    )
     private Set<Customer> members = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)

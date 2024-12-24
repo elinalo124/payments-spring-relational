@@ -3,6 +3,7 @@ package com.payments.relational.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Data
@@ -36,4 +37,10 @@ public class PaymentSummary {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Card card;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Quota>  quotasPayments;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<PurchaseSinglePayment> cashPayments;
 }

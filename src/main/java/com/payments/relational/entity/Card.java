@@ -35,6 +35,6 @@ public class Card {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Customer cardHolder;
 
-    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "card")
     private Set<Purchase> purchases;
 }

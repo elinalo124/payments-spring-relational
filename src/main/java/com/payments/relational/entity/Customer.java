@@ -38,10 +38,6 @@ public class Customer {
     @Column(name = "entry_date")
     private LocalDate entryDate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(
-            name = "customer_banking", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "bank_id", referencedColumnName = "id")
-    )
+    @ManyToMany(mappedBy = "members")
     private Set<Bank> banks = new HashSet<>();
 }
