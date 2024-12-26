@@ -13,7 +13,6 @@ public class Financing extends Promotion{
     @Column(name = "number_of_quotas")
     private int numberOfQuotas;
 
-    @Column()
+    @Column
     private float interest;
-
 }

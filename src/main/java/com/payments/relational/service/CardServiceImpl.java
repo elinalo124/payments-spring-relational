@@ -42,9 +42,6 @@ public class CardServiceImpl implements CardService{
         Bank bank =  bankRepository
                 .findById(cardDTO.getBankId())
                 .orElseThrow(() -> new PaymentsException("Bank with ID " + cardDTO.getBankId() + " not found"));
-        Customer customer = customerRepository
-                .findById(cardDTO.getCustomerId())
-                .orElseThrow(() -> new PaymentsException("Customer with ID " + cardDTO.getCustomerId() + " not found"));
 
         Card card = new Card();
         card.setCardNumber(cardDTO.getCardNumber());
@@ -53,7 +50,6 @@ public class CardServiceImpl implements CardService{
         card.setSinceDate(cardDTO.getSinceDate());
         card.setExpirationDate(cardDTO.getExpirationDate());
         card.setBank(bank);
-        card.setCustomer(customer);
         return cardRepository.save(card);
     }
 }

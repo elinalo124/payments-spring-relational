@@ -7,7 +7,10 @@ import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
@@ -24,16 +27,36 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Promotion savePromotion(Long bankId, Promotion promo) {
-        Bank bank = bankRepository.findById(bankId)
-                .orElseThrow(() -> new PaymentsException("Bank not found"));
-        promo.setBank(bank);
-        bank.getPromotions().add(promo);
-        return promotionRepository.save(promo);
+    public List<Promotion> getAllPromotions() {
+        return promotionRepository.findAll();
     }
 
     @Override
-    public List<Promotion> getAllPromotions() {
-        return promotionRepository.findAll();
+    public Promotion savePromotion(Long bankId, Promotion promo) {
+        Optional<Bank> bankOptional= bankRepository.findById(bankId);
+         if (bankOptional.isPresent()) {
+             Bank bank = bankOptional.get();
+             bank.addPromo(promo);
+             return promotionRepository.save(promo);
+        } else {
+             throw new PaymentsException("There is no bank with the Id given");
+         }
+    }
+
+    @Override
+     public Promotion extendPromotion(Long promoId, LocalDate newDate) {
+        Optional<Promotion> optionalPromo = promotionRepository.findById(promoId);
+        if (optionalPromo.isPresent()) {
+            Promotion promo = optionalPromo.get();
+            if(promo.getValidityStartDate().isBefore(newDate)) {
+                promo.setValidityEndDate(newDate);
+                return promotionRepository.save(promo);
+            } else {
+                throw new PaymentsException("The new date is not valid");
+            }
+
+        }else {
+            throw new PaymentsException("The promotion is not found");
+        }
     }
 }

@@ -23,16 +23,15 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Customer>> getAllCustomers(){
+        return ResponseEntity.ok().body(customerService.getAllCustomers());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
         return customerService.getCustomerById(id).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers(){
-        return ResponseEntity.ok().body(customerService.getAllCustomers());
     }
 
     @PostMapping

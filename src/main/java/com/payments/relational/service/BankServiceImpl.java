@@ -1,5 +1,6 @@
 package com.payments.relational.service;
 
+import com.payments.relational.controller.PromotionController;
 import com.payments.relational.dto.BankDTO;
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Card;
@@ -8,13 +9,14 @@ import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.mapper.BankMapper;
 import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.CustomerRepository;
+import lombok.extern.java.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -22,6 +24,7 @@ public class BankServiceImpl implements BankService {
     private final BankRepository bankRepository;
     private final CustomerRepository customerRepository;
     private final BankMapper mapper;
+    Logger logger = LoggerFactory.getLogger(BankServiceImpl.class);
 
     @Autowired
     public BankServiceImpl(
@@ -53,28 +56,20 @@ public class BankServiceImpl implements BankService {
     public BankDTO saveBank(BankDTO bankDTO) {
         Bank bank = BankMapper.toEntity(bankDTO);
         Set<Customer> customers = new HashSet<>();
-        Set<Card> cards = new HashSet<>();
-        if (bankDTO.getCustomerIds() != null && !bankDTO.getCustomerIds().isEmpty()) {
-            for (Long customerId : bankDTO.getCustomerIds()) {
+        if (bankDTO.getMembersId() != null && !bankDTO.getMembersId().isEmpty()) {
+            for (Long customerId : bankDTO.getMembersId()) {
                 Customer customer = customerRepository.findById(customerId)
                         .orElseThrow(() -> new PaymentsException("Customer not found with ID: " + customerId));
                 customers.add(customer);
             }
         }
-        bank.setCustomers(customers);
-        bank.setCards(cards);
+        bank.getMembers().addAll(customers);
         bankRepository.save(bank);
-
         return bankDTO;
     }
 
     @Override
-    public Bank createBank(Bank bank) {
-        return bankRepository.save(bank);
-    }
-
-    @Override
-    public Customer addCustomerToBank(Long customerId, Long bankId) throws PaymentsException {
+    public Customer addCustomerToBank(Long customerId, Long bankId) {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
         Optional<Bank> bankOptional = bankRepository.findById(bankId);
         if (customerOptional.isPresent() && bankOptional.isPresent()) {
@@ -83,25 +78,21 @@ public class BankServiceImpl implements BankService {
             if (customer.getBanks().contains(bank)) {
                 throw new PaymentsException("The customer is already associated with this bank");
             } else {
-                customer.addBank(bank);
                 bank.addCustomer(customer);
-
-                customerRepository.save(customer);
-                bankRepository.save(bank);
             }
-
             return customer;
-        }else {
+        } else {
             throw new PaymentsException("There was an error adding the client to the bank");
         }
     }
 
     @Override
-    public List<Customer> getCostumersByBankId(Long bankId) throws PaymentsException {
+    public List<Customer> getCostumersByBankId(Long bankId) {
         Optional<Bank> bankOptional = bankRepository.findById(bankId);
         if(bankOptional.isPresent()) {
             Bank bank = bankOptional.get();
-            return bank.getCustomers().stream().toList();
+            logger.info("Bank Entity", bank);
+            return bank.getMembers().stream().toList();
         } else {
             throw new PaymentsException("The bank doesn't exist in the system");
         }

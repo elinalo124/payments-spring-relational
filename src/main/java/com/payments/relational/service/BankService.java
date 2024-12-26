@@ -10,7 +10,6 @@ public interface BankService {
     List<Bank> getAllBanks();
     Bank getBankById(Long id) throws PaymentsException;
     BankDTO saveBank(BankDTO bankDTO);
-    Bank createBank(Bank bank);
-    Customer addCustomerToBank(Long customerId, Long bankId) throws PaymentsException;
-    List<Customer> getCostumersByBankId(Long bankId) throws PaymentsException;
+    Customer addCustomerToBank(Long customerId, Long bankId);
+    List<Customer> getCostumersByBankId(Long bankId) ;
 }

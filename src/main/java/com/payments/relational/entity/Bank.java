@@ -2,7 +2,7 @@ package com.payments.relational.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.HashSet;
+
 import java.util.Set;
 
 @Entity
@@ -32,11 +32,19 @@ public class Bank {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "bank_customer",
-            joinColumns = @JoinColumn(name = "bank_id"),
-            inverseJoinColumns = @JoinColumn(name = "customer_id")
+            joinColumns = @JoinColumn(name = "bank_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id")
     )
-    private Set<Customer> members = new HashSet<>();
+    private Set<Customer> members;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Promotion> promotions;
+
+    public void addCustomer(Customer customer) {
+        this.members.add(customer);
+    }
+
+    public void addPromo(Promotion promo) {
+        this.promotions.add(promo);
+    }
 }

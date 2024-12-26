@@ -62,7 +62,7 @@ public class BankController {
         }
     }
 
-    @GetMapping("{bankId}/customers")
+    @GetMapping("/{bankId}/customers")
     public ResponseEntity<List<Customer>> getBankClients(@PathVariable Long bankId) {
         try {
             List<Customer> bankCustomers = bankService.getCostumersByBankId(bankId);

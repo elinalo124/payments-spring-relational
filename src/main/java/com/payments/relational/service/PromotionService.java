@@ -2,9 +2,11 @@ package com.payments.relational.service;
 
 import com.payments.relational.entity.Promotion;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PromotionService {
-    Promotion savePromotion(Long BankId, Promotion promo);
     List<Promotion> getAllPromotions();
+    Promotion savePromotion(Long bankId, Promotion promo);
+    Promotion extendPromotion(Long promoId, LocalDate newDate);
 }

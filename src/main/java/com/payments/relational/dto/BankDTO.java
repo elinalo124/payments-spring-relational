@@ -16,7 +16,6 @@ public class BankDTO {
     private String address;
     private String telephone;
 
-    private Set<Long> customerIds;
-    private Set<Long> cardIds;
-    private Set<Long> promotionIds;
+    private Set<Long> membersId;
+    private Set<Long> promotionsId;
 }

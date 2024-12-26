@@ -7,10 +7,11 @@ import com.payments.relational.entity.Promotion;
 import com.payments.relational.service.PromotionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,13 +26,24 @@ public class PromotionController {
         this.promotionService = promotionService;
     }
 
-    @PostMapping("/discount")
+    @GetMapping
+    public ResponseEntity<List<Promotion>> getAllPromotions() {
+        List<Promotion> promotions = promotionService.getAllPromotions();
+        return ResponseEntity.ok(promotions);
+    }
+
+   @PostMapping("/discount")
     public ResponseEntity<Promotion> createDiscountPromotion(
             @RequestParam Long bankId,
             @RequestBody Discount promotion
     ) {
-        Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
-        return ResponseEntity.ok(savedPromotion);
+       try {
+           Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
+           return ResponseEntity.ok().body(savedPromotion);
+       } catch (Exception e) {
+           logger.error("There was a error saving the promotion information", e);
+           return ResponseEntity.badRequest().build();
+       }
     }
 
     @PostMapping("/financing")
@@ -48,9 +60,18 @@ public class PromotionController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Promotion>> getAllPromotions() {
-        List<Promotion> promotions = promotionService.getAllPromotions();
-        return ResponseEntity.ok(promotions);
+    @PutMapping("/{promotionId}/validity")
+    public ResponseEntity<Promotion> extendPromotion(
+            @PathVariable Long promotionId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate extendDate
+    ) {
+        try {
+            Promotion savedPromotion = promotionService.extendPromotion(promotionId, extendDate);
+            return ResponseEntity.ok().body(savedPromotion);
+        } catch (Exception e) {
+            logger.error("There was a error saving the promotion information", e);
+            return ResponseEntity.badRequest().build();
+        }
     }
+
 }
