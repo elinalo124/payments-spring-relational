@@ -35,6 +35,17 @@ public class CardsController {
         return ResponseEntity.ok().body(cardService.getAllCards());
     }
 
+    @GetMapping("/expiring")
+    public ResponseEntity<List<Card>> getCloseExpiringCards() {
+        try {
+            List<Card> cards = cardService.getCardsCloseToExpiry();
+            return ResponseEntity.ok().body(cards);
+        } catch (Exception e) {
+            logger.error("There was a error getting the cards", e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Card> createCard(@RequestBody CardDTO cardDTO) {
         try {

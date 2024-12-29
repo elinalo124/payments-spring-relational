@@ -3,13 +3,13 @@ package com.payments.relational.service;
 import com.payments.relational.dto.CardDTO;
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Card;
-import com.payments.relational.entity.Customer;
 import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.CardRepository;
 import com.payments.relational.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +51,13 @@ public class CardServiceImpl implements CardService{
         card.setExpirationDate(cardDTO.getExpirationDate());
         card.setBank(bank);
         return cardRepository.save(card);
+    }
+
+    @Override
+    public List<Card> getCardsCloseToExpiry() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate nextMonth = currentDate.plusMonths(1);
+
+        return cardRepository.findByExpirationDateBetween(currentDate, nextMonth);
     }
 }

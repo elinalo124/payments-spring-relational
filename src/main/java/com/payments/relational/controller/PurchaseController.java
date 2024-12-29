@@ -28,8 +28,13 @@ public class PurchaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Purchase> getPurchaseById(@PathVariable Long id) {
-        return purchaseService.getPurchaseById(id).map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            Purchase purchase = purchaseService.getPurchaseById(id);
+            return ResponseEntity.ok(purchase);
+        }catch (Exception e){
+            logger.error("There was a error getting the purchase information", e);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping
@@ -59,5 +64,4 @@ public class PurchaseController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 }

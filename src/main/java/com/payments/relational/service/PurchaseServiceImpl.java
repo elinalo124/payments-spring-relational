@@ -18,7 +18,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final PurchaseSinglePaymentRepository purchaseSinglePaymentRepository;
     private final CardRepository cardRepository;
     private final PromotionRepository promotionRepository;
-    private final QuotaRepository quotaRepository;
 
     @Autowired
     public PurchaseServiceImpl(
@@ -26,15 +25,13 @@ public class PurchaseServiceImpl implements PurchaseService {
             PurchaseMonthlyPaymentsRepository purchaseMonthlyPaymentsRepository,
             PurchaseSinglePaymentRepository purchaseSinglePaymentRepository,
             CardRepository cardRepository,
-            PromotionRepository promotionRepository,
-            QuotaRepository quotaRepository
+            PromotionRepository promotionRepository
     ) {
         this.purchaseRepository = purchaseRepository;
         this.purchaseMonthlyPaymentsRepository = purchaseMonthlyPaymentsRepository;
         this.purchaseSinglePaymentRepository = purchaseSinglePaymentRepository;
         this.cardRepository = cardRepository;
         this.promotionRepository = promotionRepository;
-        this.quotaRepository = quotaRepository;
     }
 
     @Override
@@ -43,12 +40,17 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Optional<Purchase> getPurchaseById(Long id) {
-        return purchaseRepository.findById(id);
+    public Purchase getPurchaseById(Long id) {
+        Optional<Purchase> purchaseOptional = purchaseRepository.findById(id);
+        if(purchaseOptional.isPresent()) {
+            return purchaseOptional.get();
+        } else {
+            throw new PaymentsException("There's no purchase related to the id");
+        }
     }
 
     @Override
-    public Purchase createPurchase(Purchase purchase) throws PaymentsException {
+    public Purchase createPurchase(Purchase purchase) {
         Optional<Card> cardOptional = cardRepository.findById(purchase.getCard().getId());
         if (cardOptional.isPresent()) {
             return purchaseRepository.save(purchase);

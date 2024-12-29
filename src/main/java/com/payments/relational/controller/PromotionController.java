@@ -74,4 +74,15 @@ public class PromotionController {
         }
     }
 
+    @DeleteMapping("/{promotionCode}")
+    public ResponseEntity<String> removePromotion(@PathVariable String promotionCode) {
+        try {
+            String result = promotionService.removePromotionByCode(promotionCode);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            logger.error("There was a error saving the promotion information", e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

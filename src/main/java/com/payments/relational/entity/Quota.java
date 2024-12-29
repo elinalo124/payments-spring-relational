@@ -1,6 +1,5 @@
 package com.payments.relational.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,8 +24,4 @@ public class Quota {
     @Column(nullable=false)
     private String year;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "purchase_monthly_payments_id", referencedColumnName = "id")
-    @JsonManagedReference
-    private PurchaseMonthlyPayments purchase;
 }

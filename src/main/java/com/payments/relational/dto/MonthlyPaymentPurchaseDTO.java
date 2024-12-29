@@ -7,14 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonthlyPaymentPurchaseDTO {
-    private String paymentVoucher;
-    private String store;
-    private String cuitStore;
-    private float amount;
-    private float finalAmount;
-    private Long cardId;
-    private String validPromotionCode;
+public class MonthlyPaymentPurchaseDTO extends PurchaseDTO {
     private float interest;
     private int numberOfQuotas;
 }

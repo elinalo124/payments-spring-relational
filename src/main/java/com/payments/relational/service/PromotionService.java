@@ -9,4 +9,5 @@ public interface PromotionService {
     List<Promotion> getAllPromotions();
     Promotion savePromotion(Long bankId, Promotion promo);
     Promotion extendPromotion(Long promoId, LocalDate newDate);
+    String removePromotionByCode (String promotionCode);
 }

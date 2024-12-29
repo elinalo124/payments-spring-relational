@@ -7,13 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SinglePurchaseDTO {
-    private String paymentVoucher;
-    private String store;
-    private String cuitStore;
-    private float amount;
-    private float finalAmount;
-    private Long cardId;
-    private String validPromotionCode;
+public class SinglePurchaseDTO extends PurchaseDTO {
     private float storeDiscount;
 }
