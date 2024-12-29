@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Card {
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

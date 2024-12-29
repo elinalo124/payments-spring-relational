@@ -13,6 +13,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Promotion {
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -47,8 +47,8 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
             PaymentSummary paymentSummary = new PaymentSummary();
             paymentSummary.setFirstExpiration(firstExpiration);
             paymentSummary.setSecondExpiration(secondExpiration);
-            paymentSummary.setMonth(String.valueOf(month));
-            paymentSummary.setYear(String.valueOf(year));
+            paymentSummary.setMonthh(String.valueOf(month));
+            paymentSummary.setYearr(String.valueOf(year));
             paymentSummary.setSurchargePercentage((float) (totalPrice * 0.1));
             paymentSummary.setCode(getPaymentSummaryCode(card.getCardNumber(), month, year));
             paymentSummary.setTotalPrice(totalPrice);

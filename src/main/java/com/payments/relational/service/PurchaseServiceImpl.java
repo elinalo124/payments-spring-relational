@@ -85,8 +85,8 @@ public class PurchaseServiceImpl implements PurchaseService {
                 Quota currentQuota = new Quota();
                 currentQuota.setNumber(i);
                 currentQuota.setPrice(quotaValue);
-                currentQuota.setMonth(monthsList.get(i).substring(0, 2));
-                currentQuota.setYear(monthsList.get(i).substring(3, 7));
+                currentQuota.setMonthh(monthsList.get(i).substring(0, 2));
+                currentQuota.setYearr(monthsList.get(i).substring(3, 7));
                 currentQuota.setPurchaseMonthlyPayments(monthlyPayments);
                 quotas.add(currentQuota);
             }

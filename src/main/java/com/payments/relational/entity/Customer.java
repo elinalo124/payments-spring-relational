@@ -14,8 +14,8 @@ import java.util.Set;
 @Table(name = "customer")
 public class Customer {
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Column(name = "complete_name")

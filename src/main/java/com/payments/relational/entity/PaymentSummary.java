@@ -9,19 +9,21 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "payment_summary")
 public class PaymentSummary {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable=false)
     private String code;
 
     @Column(nullable=false)
-    private String month;
+    private String monthh;
 
     @Column(nullable=false)
-    private String year;
+    private String yearr;
 
     @Column(name = "first_expiration")
     private LocalDate firstExpiration;
