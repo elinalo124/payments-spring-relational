@@ -1,5 +1,6 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,6 +8,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude="purchase")
 public class Quota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +26,12 @@ public class Quota {
     @Column(nullable=false)
     private String year;
 
+    @ManyToOne
+    @JoinColumn(name = "purchase_monthly_payments_id", referencedColumnName = "id")
+    @JsonBackReference
+    private PurchaseMonthlyPayments purchase;
+
+    public void setPurchaseMonthlyPayments(PurchaseMonthlyPayments purchaseMonthlyPayments) {
+        this.purchase = purchaseMonthlyPayments;
+    }
 }

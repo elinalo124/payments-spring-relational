@@ -87,6 +87,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 currentQuota.setPrice(quotaValue);
                 currentQuota.setMonth(monthsList.get(i).substring(0, 2));
                 currentQuota.setYear(monthsList.get(i).substring(3, 7));
+                currentQuota.setPurchaseMonthlyPayments(monthlyPayments);
                 quotas.add(currentQuota);
             }
 
@@ -102,6 +103,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             }
             monthlyPayments.setCard(card);
             card.addPurchase(monthlyPayments);
+
             return purchaseMonthlyPaymentsRepository.save(monthlyPayments);
         } else {
             throw new PaymentsException("There's an error with the purchase card");
