@@ -45,7 +45,7 @@ INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco Hipotecario', '
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco de San Juan', '30612345679', 'Calle Laprida 333', '1143325696');
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco de La Pampa', '30591234567', 'Av. Libertador 5050', '1143325697');
 
-INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 1);
+-- INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 1);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 2);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 3);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (2, 4);
@@ -61,13 +61,13 @@ INSERT INTO bank_customer (bank_id, customer_id) VALUES (4, 12);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('1234567812345678', '123', 'John Doe', '2020-01-01', '2025-01-01', 1, 1);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('2345678923456789', '456', 'Jane Smith', '2021-02-01', '2026-02-01', 2, 2);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('3456789034567890', '789', 'Alice Johnson', '2019-03-01', '2024-03-01', 3, 3);
-INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('4567890145678901', '012', 'Bob Brown', '2018-04-01', '2023-04-01', 4, 4);
+INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('4567890145678901', '012', 'Bob Brown', '2018-04-01', '2025-04-01', 4, 4);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('5678901256789012', '345', 'Cathy Davis', '2022-05-01', '2027-05-01', 5, 5);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('6789012367890123', '678', 'David Wilson', '2020-06-01', '2025-06-01', 1, 6);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('7890123478901234', '901', 'Eva Martinez', '2019-07-01', '2024-07-01', 2, 7);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('8901234589012345', '234', 'Frank Thomas', '2021-08-01', '2026-08-01', 3, 8);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('9012345690123456', '567', 'Grace Lee', '2020-09-01', '2025-09-01', 4, 9);
-INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('0123456701234567', '890', 'Henry White', '2018-10-01', '2023-10-01', 5, 10);
+INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('0123456701234567', '890', 'Henry White', '2018-10-01', '2025-10-01', 5, 10);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('1234567812345679', '123', 'Isla Young', '2019-11-01', '2024-11-01', 1, 11);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('2345678923456780', '456', 'Jack King', '2022-12-01', '2027-12-01', 2, 12);
 INSERT INTO card (card_number, cvv, card_holder_name, since_date, expiration_date, bank_id, card_holder_id) VALUES ('3456789034567891', '789', 'Kate Green', '2020-01-01', '2025-01-01', 3, 13);
