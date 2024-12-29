@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -28,6 +30,9 @@ public class Purchase {
 
     @Column(name = "final_amount", nullable=false)
     private float finalAmount;
+
+    @Column(name = "purchase_date")
+    private LocalDate purchase_date = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")

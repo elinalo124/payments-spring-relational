@@ -39,7 +39,7 @@ public class PaymentSummary {
     private Card card;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private Set<Quota>  quotasPayments;
+    private Set<PurchaseMonthlyPayments>  quotasPayments;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<PurchaseSinglePayment> cashPayments;

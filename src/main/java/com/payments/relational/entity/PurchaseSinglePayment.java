@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PurchaseSinglePayment extends Purchase{
+public class PurchaseSinglePayment extends Purchase {
     @Column(name = "store_discount")
     private float storeDiscount;
 }
