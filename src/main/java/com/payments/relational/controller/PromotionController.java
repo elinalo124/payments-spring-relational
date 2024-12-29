@@ -46,6 +46,7 @@ public class PromotionController {
        }
     }
 
+    // 1) Agregar una promocion de tipo Financing a un banco dado
     @PostMapping("/financing")
     public ResponseEntity<Promotion> createFinancingPromotion(
             @RequestParam Long bankId,
@@ -60,6 +61,7 @@ public class PromotionController {
         }
     }
 
+    // 2) Extender el tiempo de validez de una promocion
     @PutMapping("/{promotionId}/validity")
     public ResponseEntity<Promotion> extendPromotion(
             @PathVariable Long promotionId,
