@@ -1,5 +1,6 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,7 @@ public class PurchaseMonthlyPayments extends Purchase{
     @Column(name = "number_of_quotas", nullable = false)
     private int numberOfQuotas;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "purchase_monthly_payments_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "purchase")
+    @JsonBackReference
     private Set<Quota> quotas;
 }

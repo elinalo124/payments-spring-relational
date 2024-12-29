@@ -1,5 +1,6 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,6 +36,7 @@ public class Bank {
             joinColumns = @JoinColumn(name = "bank_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id")
     )
+    @JsonManagedReference
     private Set<Customer> members;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)

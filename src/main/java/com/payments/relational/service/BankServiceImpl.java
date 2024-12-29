@@ -1,22 +1,17 @@
 package com.payments.relational.service;
 
-import com.payments.relational.controller.PromotionController;
 import com.payments.relational.dto.BankDTO;
 import com.payments.relational.entity.Bank;
-import com.payments.relational.entity.Card;
 import com.payments.relational.entity.Customer;
 import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.mapper.BankMapper;
 import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.CustomerRepository;
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -90,9 +85,7 @@ public class BankServiceImpl implements BankService {
     public List<Customer> getCostumersByBankId(Long bankId) {
         Optional<Bank> bankOptional = bankRepository.findById(bankId);
         if(bankOptional.isPresent()) {
-            Bank bank = bankOptional.get();
-            logger.info("Bank Entity", bank);
-            return bank.getMembers().stream().toList();
+            return bankRepository.findMembersByBankId(bankId).stream().toList();
         } else {
             throw new PaymentsException("The bank doesn't exist in the system");
         }

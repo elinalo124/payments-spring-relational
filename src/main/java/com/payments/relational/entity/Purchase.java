@@ -1,5 +1,6 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,9 +31,11 @@ public class Purchase {
 
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Card card;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "promotion_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Promotion validPromotion;
 }

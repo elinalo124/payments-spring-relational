@@ -1,5 +1,6 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -36,5 +37,10 @@ public class Card {
     private Customer cardHolder;
 
     @OneToMany(mappedBy = "card")
+    @JsonBackReference
     private Set<Purchase> purchases;
+
+    public void addPurchase(Purchase purchase) {
+        this.purchases.add(purchase);
+    }
 }

@@ -1,6 +1,8 @@
 package com.payments.relational.controller;
 
 
+import com.payments.relational.dto.MonthlyPaymentPurchaseDTO;
+import com.payments.relational.dto.SinglePurchaseDTO;
 import com.payments.relational.entity.Customer;
 import com.payments.relational.entity.Purchase;
 import com.payments.relational.entity.PurchaseMonthlyPayments;
@@ -37,9 +39,9 @@ public class PurchaseController {
     }
 
     @PostMapping("/single")
-    public ResponseEntity<Purchase> createSinglePurchase(@RequestBody PurchaseSinglePayment singlePurchase) {
+    public ResponseEntity<PurchaseSinglePayment> createSinglePurchase(@RequestBody SinglePurchaseDTO singlePurchase) {
         try {
-            Purchase savedPurchase = purchaseService.createPurchaseSinglePayment(singlePurchase);
+            PurchaseSinglePayment savedPurchase = purchaseService.createPurchaseSinglePayment(singlePurchase);
             return ResponseEntity.ok(savedPurchase);
         }catch (Exception e){
             logger.error("There was a error saving the purchase information", e);
@@ -48,9 +50,9 @@ public class PurchaseController {
     }
 
     @PostMapping("/monthly")
-    public ResponseEntity<Purchase> createMonthlyPurchase(@RequestBody PurchaseMonthlyPayments monthlyPurchase) {
+    public ResponseEntity<PurchaseMonthlyPayments> createMonthlyPurchase(@RequestBody MonthlyPaymentPurchaseDTO monthlyPurchase) {
         try {
-            Purchase savedPurchase = purchaseService.createPurchaseMonthlyPayments(monthlyPurchase);
+            PurchaseMonthlyPayments savedPurchase = purchaseService.createPurchaseMonthlyPayments(monthlyPurchase);
             return ResponseEntity.ok(savedPurchase);
         }catch (Exception e){
             logger.error("There was a error saving the purchase information", e);

@@ -48,15 +48,12 @@ INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco de La Pampa', '
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 1);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 2);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 3);
-
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (2, 4);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (2, 5);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (2, 6);
-
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (3, 7);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (3, 8);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (3, 9);
-
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (4, 10);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (4, 11);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (4, 12);
@@ -104,7 +101,6 @@ INSERT INTO financing (id, number_of_quotas, interest) VALUES (9, 15, 2.0);
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('FIN010', 'Appliance Financing', 'Appliance World', '8899001122', '2024-09-01', '2025-02-28', 'Flexible EMI plans');
 INSERT INTO financing (id, number_of_quotas, interest) VALUES (10, 18, 4.0);
 
-
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS001', 'Summer Sale', 'Fashion Boutique', '5566778899', '2024-06-01', '2024-06-30', 'Up to 50% off!');
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (11, 50.0, 1000.0, false);
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS002', 'Electronics Discount', 'Tech Plaza', '9988776655', '2024-07-01', '2024-07-31', 'Flat 20% off');
@@ -122,4 +118,4 @@ INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (17,
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS008', 'Books Discount', 'Book Store', '0987654321', '2024-12-01', '2024-12-31', 'Buy 1 Get 1');
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (18, 50.0, 100.0, false);
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS009', 'Gaming Gear Sale', 'Gamer Plaza', '1122334455', '2024-05-01', '2024-06-30', 'Save 40% on accessories');
-INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (19, 40.0, 700.0);
+INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (19, 40.0, 700.0, false);

@@ -1,9 +1,9 @@
 package com.payments.relational.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -36,5 +36,6 @@ public class Customer {
     private LocalDate entryDate;
 
     @ManyToMany(mappedBy = "members")
+    @JsonBackReference
     private Set<Bank> banks;
 }

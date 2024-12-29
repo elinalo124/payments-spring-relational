@@ -1,5 +1,7 @@
 package com.payments.relational.service;
 
+import com.payments.relational.dto.MonthlyPaymentPurchaseDTO;
+import com.payments.relational.dto.SinglePurchaseDTO;
 import com.payments.relational.entity.Purchase;
 import com.payments.relational.entity.PurchaseMonthlyPayments;
 import com.payments.relational.entity.PurchaseSinglePayment;
@@ -14,6 +16,6 @@ public interface PurchaseService {
     List<Purchase> getAllPurchases();
     Optional<Purchase> getPurchaseById(Long id);
     Purchase createPurchase(Purchase purchase) throws PaymentsException;
-    PurchaseMonthlyPayments createPurchaseMonthlyPayments(PurchaseMonthlyPayments monthlyPurchase) throws PaymentsException;
-    PurchaseSinglePayment createPurchaseSinglePayment(PurchaseSinglePayment singlePurchase) throws PaymentsException;
+    PurchaseMonthlyPayments createPurchaseMonthlyPayments(MonthlyPaymentPurchaseDTO monthlyPurchase);
+    PurchaseSinglePayment createPurchaseSinglePayment(SinglePurchaseDTO singlePurchase);
 }

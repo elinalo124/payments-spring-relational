@@ -1,5 +1,6 @@
 package com.payments.relational.controller;
 
+import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
 import com.payments.relational.service.CustomerService;
 import org.slf4j.Logger;
@@ -32,6 +33,17 @@ public class CustomerController {
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
         return customerService.getCustomerById(id).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{customerId}/banks")
+    public ResponseEntity<List<Bank>> getClientsBanksById(@PathVariable Long customerId) {
+        try {
+            List<Bank> bankCustomers = customerService.getBanksByCustomerId(customerId);
+            return ResponseEntity.ok().body(bankCustomers);
+        } catch (Exception e) {
+            logger.error("Error getting bank's clients", e);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping

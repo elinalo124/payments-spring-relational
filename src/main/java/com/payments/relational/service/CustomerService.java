@@ -1,5 +1,6 @@
 package com.payments.relational.service;
 
+import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
 
 import java.util.List;
@@ -9,4 +10,5 @@ public interface CustomerService {
     List<Customer> getAllCustomers();
     Optional<Customer> getCustomerById(Long id);
     Customer createCustomer(Customer customer);
+    List<Bank> getBanksByCustomerId(Long customerId);
 }
