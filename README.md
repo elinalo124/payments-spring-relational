@@ -13,7 +13,34 @@ Open terminal and run
 brew install openjdk@17
 ```
 
-## Database set up
+
+## H2 Database set up
+1. Download H2 Database as https://www.h2database.com/
+2. Extract the ZIP file.
+   1. Locate the downloaded .zip file (e.g., h2-<version>.zip). 
+   2. Extract the ZIP file to a directory of your choice (e.g., /Users/your-username/h2).
+3. Start the H2 Database 
+   1. Open the Terminal on macOS.
+   2. Navigate to the extracted H2 directory: cd /Users/your-username/h2/bin
+   3. Start the H2 Console:
+```shell
+java -jar h2-*.jar
+```
+Replace h2-*.jar with the actual JAR file name, such as h2-2.2.220.jar.
+4. Create the H2 Database 
+   1. In the H2 Console login page:
+      1. Saved Settings: Generic H2 (Embedded)
+      2. Driver Class: org.h2.Driver
+      2. JDBC URL: jdbc:h2:~/test
+      3. User Name: sa (default).
+      4. Password: Leave blank (default).
+   2. Click Connect. (This creates an H2 database at the specified path. If you used jdbc:h2:~/test, a testdb.mv.db will appear in your home directory)
+5. Access the database 
+   1. You can now run SQL commands in the H2 Console interface to interact with the database.
+   2. To verify the database file, check the path (e.g., ~/testdb.mv.db).
+
+
+## MySQL Database set up --- Deprecated
 
 1. Open terminal and run
 ```shell
