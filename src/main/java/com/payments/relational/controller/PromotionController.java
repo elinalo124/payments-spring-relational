@@ -76,6 +76,8 @@ public class PromotionController {
         }
     }
 
+    // 6) Eliminar una promocion a traves de su codigo
+    // tener en cuenta que esta puede haber sido aplicada a alguna compra
     @DeleteMapping("/{promotionCode}")
     public ResponseEntity<String> removePromotion(@PathVariable String promotionCode) {
         try {

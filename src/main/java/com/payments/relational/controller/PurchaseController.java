@@ -26,6 +26,7 @@ public class PurchaseController {
         this.purchaseService = purchaseService;
     }
 
+    // 5) Obtener la informacion de una compra, incluyendo el listado de cuotas si esta posee
     @GetMapping("/{id}")
     public ResponseEntity<Purchase> getPurchaseById(@PathVariable Long id) {
         try {

@@ -11,4 +11,5 @@ public interface CardService {
     Optional<Card> getCardById(Long id);
     Card createCard(CardDTO cardDTO);
     List<Card> getCardsCloseToExpiry();
+    List<Card> getTop10CardsWithMostPurchases();
 }

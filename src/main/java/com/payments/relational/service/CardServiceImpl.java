@@ -8,6 +8,8 @@ import com.payments.relational.repository.BankRepository;
 import com.payments.relational.repository.CardRepository;
 import com.payments.relational.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -59,5 +61,11 @@ public class CardServiceImpl implements CardService{
         LocalDate nextMonth = currentDate.plusMonths(1);
 
         return cardRepository.findByExpirationDateBetween(currentDate, nextMonth);
+    }
+
+    @Override
+    public List<Card> getTop10CardsWithMostPurchases() {
+        Pageable pageable = PageRequest.of(0, 10);
+        return cardRepository.findTop10CardsWithMostPurchases(pageable);
     }
 }

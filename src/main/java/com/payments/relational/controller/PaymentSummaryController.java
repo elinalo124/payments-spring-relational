@@ -19,6 +19,7 @@ public class PaymentSummaryController {
     @Autowired
     public PaymentSummaryController(PaymentSummaryService paymentSummaryService) { this.paymentSummaryService = paymentSummaryService; }
 
+    // 3) Generar el total de pago de un mes dado, informando las compras correspondientes
     @GetMapping
     public ResponseEntity<PaymentSummary> getPaymentSummary(
             @RequestParam Long cardId,

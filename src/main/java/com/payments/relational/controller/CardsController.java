@@ -35,7 +35,7 @@ public class CardsController {
         return ResponseEntity.ok().body(cardService.getAllCards());
     }
 
-    //
+    // 4) Obtener el listado de tarjetas que vencen en los siguientes 30 dias
     @GetMapping("/expiring")
     public ResponseEntity<List<Card>> getCloseExpiringCards() {
         try {
@@ -56,5 +56,12 @@ public class CardsController {
             logger.error("There was a error saving the Bank information", e);
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    // 8) Obtener la informacion de las 10 tarjetas con mas compras.
+    @GetMapping("/top10")
+    public ResponseEntity<List<Card>> getTop10CardsWithMostPurchases() {
+        List<Card> cards = cardService.getTop10CardsWithMostPurchases();
+        return ResponseEntity.ok(cards);
     }
 }
