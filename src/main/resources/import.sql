@@ -119,3 +119,38 @@ INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_s
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (18, 50.0, 100.0, false);
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS009', 'Gaming Gear Sale', 'Gamer Plaza', '1122334455', '2024-05-01', '2024-06-30', 'Save 40% on accessories');
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (19, 40.0, 700.0, false);
+
+
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1234', 'Store A', '20-12345678-9', 500.00, 500.00, '2024-06-01', 1, 1);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1235', 'Store B', '20-12345678-9', 300.00, 300.00, '2024-07-15', 1, 2);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1236', 'Store C', '20-12345678-9', 150.00, 150.00, '2024-11-20', 1, 3);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1237', 'Store D', '20-12345678-9', 400.00, 400.00, '2024-12-10', 1, 4);
+
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (1, 0.1);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (2, 0.15);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (3, 0.05);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (4, 0.2);
+
+
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1238', 'Store E', '20-12345678-9', 1000.00, 1050.00, '2024-06-01', 1, 1);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1239', 'Store F', '20-12345678-9', 1500.00, 1575.00, '2024-07-01', 1, 2);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1240', 'Store G', '20-12345678-9', 800.00, 840.00, '2024-12-15', 1, 3);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1241', 'Store H', '20-12345678-9', 2000.00, 2100.00, '2024-12-01', 1, 4);
+
+INSERT INTO purchase_monthly_payments (id, interest, number_of_quotas) VALUES (5, 5.00, 12);
+INSERT INTO purchase_monthly_payments (id, interest, number_of_quotas) VALUES (6, 3.50, 6);
+INSERT INTO purchase_monthly_payments (id, interest, number_of_quotas) VALUES (7, 6.00, 24);
+INSERT INTO purchase_monthly_payments (id, interest, number_of_quotas) VALUES (8, 4.00, 18);
+
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (5, 1, 87.50, '07', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (5, 2, 87.50, '08', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (5, 3, 87.50, '09', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (6, 1, 87.50, '07', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (6, 2, 87.50, '08', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (6, 3, 87.50, '09', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 1, 87.50, '10', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 2, 87.50, '11', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 3, 87.50, '12', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 14,87.50, '01', '2025');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (8, 1, 87.50, '12', '2024');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (8, 2, 87.50, '01', '2025');

@@ -21,6 +21,4 @@ public class PurchaseMonthlyPayments extends Purchase{
     private Set<Quota> quotas;
 
     public void addQuota(Quota quota) { this.quotas.add(quota); }
-
-
 }
