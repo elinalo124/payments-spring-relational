@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Set;
 
 public interface PurchaseSinglePaymentRepository extends JpaRepository<PurchaseSinglePayment, Long> {
-    @Query("SELECT p FROM Purchase p WHERE p.card.id = :cardId AND FUNCTION('MONTH', p.purchase_date) = :month AND FUNCTION('YEAR', p.purchase_date) = :year")
+    @Query("SELECT p FROM Purchase p WHERE p.card.id = :cardId AND FUNCTION('MONTH', p.purchaseDate) = :month AND FUNCTION('YEAR', p.purchaseDate) = :year")
     Set<PurchaseSinglePayment> findByCardAndMonthAndYear(@Param("cardId") Long cardId, @Param("month") int month, @Param("year") int year);
 }

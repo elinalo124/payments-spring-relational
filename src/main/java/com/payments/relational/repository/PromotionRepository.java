@@ -15,8 +15,10 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     Optional<Promotion> findByCode(String code);
 //    List<Promotion> findByCuitStoreAndValidityStartDateLessThanEqualAndValidityEndDateGreaterThanEqual(
 //            String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
-    @Query("SELECT p FROM Promotion p WHERE p.cuitStore = :cuitStore AND " +
-            "(p.validityEndDate <= :validityEndDate AND p.validityStartDate >= :validityStartDate)")
+    @Query("SELECT p FROM Promotion p " +
+            "WHERE p.cuitStore = :cuitStore " +
+            "AND (p.validityEndDate <= :validityEndDate " +
+            "AND p.validityStartDate >= :validityStartDate)")
     List<Promotion> findValidPromotionsInRange(@Param("cuitStore") String cuitStore,
                                                @Param("validityStartDate") LocalDate validityStartDate,
                                                @Param("validityEndDate") LocalDate validityEndDate);

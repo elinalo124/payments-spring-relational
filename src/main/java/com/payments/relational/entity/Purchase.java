@@ -33,7 +33,7 @@ public class Purchase {
     private float finalAmount;
 
     @Column(name = "purchase_date")
-    private LocalDate purchase_date = LocalDate.now();
+    private LocalDate purchaseDate = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")
