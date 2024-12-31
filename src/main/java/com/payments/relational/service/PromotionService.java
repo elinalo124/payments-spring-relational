@@ -11,4 +11,5 @@ public interface PromotionService{
     Promotion extendPromotion(Long promoId, LocalDate newDate);
     String removePromotionByCode (String promotionCode);
     List<Promotion> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
+    Promotion getMostUsedPromotion();
 }

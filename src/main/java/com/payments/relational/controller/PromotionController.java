@@ -100,4 +100,10 @@ public class PromotionController {
         return promotionService.getValidPromotionsInRange(cuit_store, validityStartDate, validityEndDate);
     }
 
+    // 8) Obtener la promocion mas utilizada en las compras registradas
+    @GetMapping("/most-used")
+    public Promotion getMostUsedPromotion() {
+        return promotionService.getMostUsedPromotion();
+    }
+
 }

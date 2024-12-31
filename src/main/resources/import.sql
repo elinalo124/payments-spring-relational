@@ -125,7 +125,7 @@ INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_s
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (20, 20.0, 100.0, false);
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS011', 'Ski Boots Sale', 'Ski Central', '112233445566', '2024-02-02', '2024-02-15', 'Save 30% on ski boots');
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (21, 30.0, 200.0, false);
-INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS012', 'Ski Sale', 'Ski Central', '112233445566', '2024-02-03', '2024-02-16', 'Save 40% on skis');
+INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS012', 'Ski Sale', 'Ski Central', '20-12345678-7', '2024-02-03', '2024-02-16', 'Save 40% on skis');
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (22, 40.0, 300.0, false);
 INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS013', 'Snowboard Sale', 'Ski Central', '112233445566', '2024-05-01', '2024-06-30', 'Save 50% on snowboards');
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (23, 50.0, 400.0, false);
@@ -164,3 +164,14 @@ INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) V
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 14,87.50, '01', '2025');
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (8, 1, 87.50, '12', '2024');
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (8, 2, 87.50, '01', '2025');
+
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1242', 'Ski Central', '20-12345678-7', 500.00, 500.00, '2024-02-03', 1, 22);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (9, 0.4);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1243', 'Ski Central', '20-12345678-7', 500.00, 500.00, '2024-02-04', 1, 22);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (10, 0.4);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1244', 'Ski Central', '20-12345678-7', 500.00, 500.00, '2024-02-05', 1, 22);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (11, 0.4);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1245', 'Ski Central', '20-12345678-7', 500.00, 500.00, '2024-02-06', 1, 22);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (12, 0.4);
+
+

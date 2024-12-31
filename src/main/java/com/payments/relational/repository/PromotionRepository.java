@@ -20,4 +20,10 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     List<Promotion> findValidPromotionsInRange(@Param("cuitStore") String cuitStore,
                                                @Param("validityStartDate") LocalDate validityStartDate,
                                                @Param("validityEndDate") LocalDate validityEndDate);
+
+    @Query("SELECT p FROM Promotion p " +
+            "JOIN p.purchases o " +
+            "GROUP BY p " +
+            "ORDER BY COUNT(o) DESC")
+    List<Promotion> findMostUsedPromotion();
 }

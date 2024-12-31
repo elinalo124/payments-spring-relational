@@ -88,4 +88,9 @@ public class PromotionServiceImpl implements PromotionService {
         return promotionRepository.findValidPromotionsInRange(cuitStore, validityStartDate, validityEndDate);
     }
 
+    @Override
+    public Promotion getMostUsedPromotion() {
+        return promotionRepository.findMostUsedPromotion().get(0);
+    }
+
 }
