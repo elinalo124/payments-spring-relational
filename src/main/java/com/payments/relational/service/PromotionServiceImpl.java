@@ -81,4 +81,11 @@ public class PromotionServiceImpl implements PromotionService {
             return "Promotion with code " + promotionCode + "does not exist.";
         }
     }
+
+    @Override
+    public List<Promotion> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate) {
+        //return promotionRepository.findByCuitStoreAndValidityStartDateLessThanEqualAndValidityEndDateGreaterThanEqual(cuitStore, validityStartDate, validityEndDate);
+        return promotionRepository.findValidPromotionsInRange(cuitStore, validityStartDate, validityEndDate);
+    }
+
 }

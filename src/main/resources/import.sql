@@ -121,6 +121,16 @@ INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_s
 INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (19, 40.0, 700.0, false);
 
 
+INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS010', 'Ski Helmet Sale', 'Ski Central', '112233445566', '2024-01-01', '2024-01-15', 'Save 20% on helmets');
+INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (20, 20.0, 100.0, false);
+INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS011', 'Ski Boots Sale', 'Ski Central', '112233445566', '2024-02-02', '2024-02-15', 'Save 30% on ski boots');
+INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (21, 30.0, 200.0, false);
+INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS012', 'Ski Sale', 'Ski Central', '112233445566', '2024-02-03', '2024-02-16', 'Save 40% on skis');
+INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (22, 40.0, 300.0, false);
+INSERT INTO promotion (code, promotion_title, name_store, cuit_store, validity_start_date, validity_end_date, comments) VALUES ('DIS013', 'Snowboard Sale', 'Ski Central', '112233445566', '2024-05-01', '2024-06-30', 'Save 50% on snowboards');
+INSERT INTO discount (id, discount_percentage, price_cap, only_cash) VALUES (23, 50.0, 400.0, false);
+
+
 INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1234', 'Store A', '20-12345678-9', 500.00, 500.00, '2024-06-01', 1, 1);
 INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1235', 'Store B', '20-12345678-9', 300.00, 300.00, '2024-07-15', 1, 2);
 INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1236', 'Store C', '20-12345678-9', 150.00, 150.00, '2024-11-20', 1, 3);
