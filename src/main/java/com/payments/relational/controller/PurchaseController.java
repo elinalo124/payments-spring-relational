@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/purchasing")
@@ -64,5 +65,14 @@ public class PurchaseController {
             logger.error("There was a error saving the purchase information", e);
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    // 10) Obtener el nombre y el CUIT del local que mas facturo en cierto mes
+    @GetMapping("/top-income-store")
+    public Map<String, Object> getTopIncomeStore(
+            @RequestParam int month,
+            @RequestParam int year
+    ) {
+        return purchaseService.getTopStore(month, year);
     }
 }

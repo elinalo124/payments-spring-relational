@@ -7,6 +7,7 @@ import com.payments.relational.entity.PurchaseMonthlyPayments;
 import com.payments.relational.entity.PurchaseSinglePayment;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PurchaseService {
     List<Purchase> getAllPurchases();
@@ -14,4 +15,5 @@ public interface PurchaseService {
     Purchase createPurchase(Purchase purchase);
     PurchaseMonthlyPayments createPurchaseMonthlyPayments(MonthlyPaymentPurchaseDTO monthlyPurchase);
     PurchaseSinglePayment createPurchaseSinglePayment(SinglePurchaseDTO singlePurchase);
+    Map<String, Object> getTopStore(int month, int year);
 }

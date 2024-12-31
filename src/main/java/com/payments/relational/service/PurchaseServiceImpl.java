@@ -160,4 +160,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         return months;
     }
 
+    @Override
+    public Map<String, Object> getTopStore(int month, int year) {
+        return purchaseRepository.findTopStoreByMonthAndYear(month, year);
+    }
+
 }

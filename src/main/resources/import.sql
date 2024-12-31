@@ -173,5 +173,9 @@ INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, 
 INSERT INTO purchase_single_payment (id, store_discount) VALUES (11, 0.4);
 INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1245', 'Ski Central', '20-12345678-7', 500.00, 500.00, '2024-02-06', 1, 22);
 INSERT INTO purchase_single_payment (id, store_discount) VALUES (12, 0.4);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1246', 'Ski Central', '20-12345678-7', 700.00, 700.00, '2024-03-06', 1, 22);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (13, 0.4);
+INSERT INTO purchase (payment_voucher, store, cuit_store, amount, final_amount, purchase_date, card_id, promotion_id) VALUES ('VOUCHER1247', 'Gamer Plaza', '1122334455', 3000.00, 3000.00, '2024-02-06', 1, 19);
+INSERT INTO purchase_single_payment (id, store_discount) VALUES (14, 0.4);
 
 
