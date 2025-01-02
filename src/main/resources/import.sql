@@ -23,8 +23,8 @@ INSERT INTO customer (complete_name, dni, cuil, address, telephone, entry_date) 
 INSERT INTO customer (complete_name, dni, cuil, address, telephone, entry_date) VALUES ('Marta Acosta', '56789014', '20567890145', 'Calle Alem 1616', '2494251020', '2023-01-15');
 
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Galicia', '123456778', 'AV. Mitre 1223', '123435');
-INSERT INTO bank (name, cuit, address, telephone) VALUES ('Galicia', '123456778', 'AV. Mitre 1223', '123435');
-INSERT INTO bank (name, cuit, address, telephone) VALUES ('Galicia', '30512345678', 'Av. Mitre 1223', '1143325678');
+INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco territorio', '123456778', 'AV. Mitre 1223', '123435');
+INSERT INTO bank (name, cuit, address, telephone) VALUES ('Bancolombia', '30512345678', 'Av. Mitre 1223', '1143325678');
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Santander Río', '30598765432', 'Calle Florida 550', '1143325679');
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('BBVA', '30654321987', 'Av. Córdoba 1200', '1143325680');
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco Macro', '30567891234', 'Calle Corrientes 833', '1143325681');
@@ -45,7 +45,7 @@ INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco Hipotecario', '
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco de San Juan', '30612345679', 'Calle Laprida 333', '1143325696');
 INSERT INTO bank (name, cuit, address, telephone) VALUES ('Banco de La Pampa', '30591234567', 'Av. Libertador 5050', '1143325697');
 
--- INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 1);
+INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 1);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 2);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (1, 3);
 INSERT INTO bank_customer (bank_id, customer_id) VALUES (2, 4);
@@ -161,7 +161,7 @@ INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) V
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 1, 87.50, '10', '2024');
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 2, 87.50, '11', '2024');
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 3, 87.50, '12', '2024');
-INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 14,87.50, '01', '2025');
+INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (7, 4,87.50, '01', '2025');
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (8, 1, 87.50, '12', '2024');
 INSERT INTO quota (purchase_monthly_payments_id, number, price, monthh, yearr) VALUES (8, 2, 87.50, '01', '2025');
 

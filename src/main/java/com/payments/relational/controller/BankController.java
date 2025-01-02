@@ -1,5 +1,6 @@
 package com.payments.relational.controller;
 
+import com.payments.relational.dto.BankCustomerDTO;
 import com.payments.relational.dto.BankDTO;
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
@@ -73,6 +74,14 @@ public class BankController {
         }
     }
 
-    // 11) Obtener un listado con el numero de clientes de cada
-
+    @GetMapping("/members")
+    public ResponseEntity<List<BankCustomerDTO>> getCustomersAmountPerBank() {
+        try {
+            List<BankCustomerDTO> bankCustomers = bankService.getCustomersAmountPerBank();
+            return ResponseEntity.ok().body(bankCustomers);
+        } catch (Exception e) {
+            logger.error("Error getting bank's clients", e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

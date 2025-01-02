@@ -1,5 +1,6 @@
 package com.payments.relational.service;
 
+import com.payments.relational.dto.BankCustomerDTO;
 import com.payments.relational.dto.BankDTO;
 import com.payments.relational.entity.Bank;
 import com.payments.relational.entity.Customer;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -89,5 +91,18 @@ public class BankServiceImpl implements BankService {
         } else {
             throw new PaymentsException("The bank doesn't exist in the system");
         }
+    }
+
+    @Override
+    public List<BankCustomerDTO> getCustomersAmountPerBank() {
+        return bankRepository.findAll().stream().map(bank -> {
+            BankCustomerDTO dto = new BankCustomerDTO();
+            Long bankId = bank.getId();
+            int members = bankRepository.findMembersByBankId(bankId).size();
+            dto.setBankId(bankId.toString());
+            dto.setBank_name(bank.getName());
+            dto.setMembers_amount(members);
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

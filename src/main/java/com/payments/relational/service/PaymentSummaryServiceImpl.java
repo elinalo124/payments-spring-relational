@@ -7,29 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class PaymentSummaryServiceImpl implements PaymentSummaryService {
-    private PurchaseSinglePaymentRepository singlePaymentRepository;
-    private PurchaseMonthlyPaymentsRepository monthlyPaymentsRepository;
     private PurchaseRepository purchaseRepository;
     private CardRepository cardRepository;
     private PaymentSummaryRepository paymentSummaryRepository;
+    private QuotaRepository quotaRepository;
 
     @Autowired
     public PaymentSummaryServiceImpl(
-            PurchaseSinglePaymentRepository singlePaymentRepository,
-            PurchaseMonthlyPaymentsRepository monthlyPaymentsRepository,
             PurchaseRepository purchaseRepository,
             CardRepository cardRepository,
-            PaymentSummaryRepository paymentSummaryRepository
+            PaymentSummaryRepository paymentSummaryRepository,
+            QuotaRepository quotaRepository
     ){
-        this.singlePaymentRepository = singlePaymentRepository;
-        this.monthlyPaymentsRepository = monthlyPaymentsRepository;
         this.purchaseRepository = purchaseRepository;
         this.cardRepository = cardRepository;
         this.paymentSummaryRepository = paymentSummaryRepository;
+        this.quotaRepository = quotaRepository;
     }
 
     @Override
@@ -37,8 +33,8 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new PaymentsException("Card not found for ID: " + cardId));
 
-        List<PurchaseMonthlyPayments> monthlyPayments = purchaseRepository
-                .findMonthlyPaymentsByCardAndDate(cardId, month, year);
+        List<Quota> monthlyPayments = quotaRepository
+                .findQuotasByMonthYearAndCardId(month, year, cardId);
 
         List<PurchaseSinglePayment> singlePayments = purchaseRepository
                 .findSinglePaymentsByCardAndDate(cardId, month, year);
@@ -56,24 +52,15 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
         summary.setSurchargePercentage(5.0f);
         summary.setTotalPrice(totalPrice);
         summary.setCard(card);
-        summary.setQuotasPayments(collectQuotasFromMonthlyPayments(monthlyPayments));
+        summary.setQuotasPayments(new HashSet<>(monthlyPayments));
         summary.setCashPayments(new HashSet<>(singlePayments));
 
         return paymentSummaryRepository.save(summary);
-
-
     }
 
-    private Set<Quota> collectQuotasFromMonthlyPayments(List<PurchaseMonthlyPayments> monthlyPayments) {
-        return monthlyPayments.stream()
-                .flatMap(p -> p.getQuotas().stream())
-                .collect(Collectors.toSet());
-    }
-
-    private float calculateTotalPrice(List<PurchaseMonthlyPayments> monthlyPayments,
+    private float calculateTotalPrice(List<Quota> quotas,
                                       List<PurchaseSinglePayment> singlePayments) {
-        float monthlyTotal = (float) monthlyPayments.stream()
-                .flatMap(p -> p.getQuotas().stream())
+        float monthlyTotal = (float) quotas.stream()
                 .mapToDouble(Quota::getPrice)
                 .sum();
 
@@ -82,32 +69,5 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
                 .sum();
 
         return (monthlyTotal + singleTotal);
-    }
-
-    private String getPaymentSummaryCode(String cardNumber, int month, int year) {
-        String lastThreeNumbers = cardNumber.substring(cardNumber.length() - 3);
-        String yearString = String.valueOf(year % 100);
-        String montString = String.valueOf(month);
-        return lastThreeNumbers + montString + yearString;
-    }
-
-    private float calculateTotalPrice(Set<Purchase> purchases) {
-        if (purchases == null || purchases.isEmpty()) {
-            return 0f;
-        }
-
-        return (float) purchases.stream()
-                .mapToDouble(Purchase::getFinalAmount)
-                .sum();
-    }
-
-    private float calculateQuotaTotalPrice(Set<Quota> quotas) {
-        if (quotas == null || quotas.isEmpty()) {
-            return 0f;
-        }
-
-        return (float) quotas.stream()
-                .mapToDouble(Quota::getPrice)
-                .sum();
     }
 }
