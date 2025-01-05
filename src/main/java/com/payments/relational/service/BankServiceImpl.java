@@ -76,8 +76,9 @@ public class BankServiceImpl implements BankService {
                 throw new PaymentsException("The customer is already associated with this bank");
             } else {
                 bank.addCustomer(customer);
+                bankRepository.save(bank);
             }
-            return customer;
+            return customerRepository.save(customer);
         } else {
             throw new PaymentsException("There was an error adding the client to the bank");
         }

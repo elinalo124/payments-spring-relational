@@ -40,7 +40,9 @@ public class PromotionServiceImpl implements PromotionService {
         Optional<Bank> bankOptional= bankRepository.findById(bankId);
          if (bankOptional.isPresent()) {
              Bank bank = bankOptional.get();
-             bank.addPromo(promo);
+             Promotion newPromo = promotionRepository.save(promo);
+             bank.addPromo(newPromo);
+             bankRepository.save(bank);
              return promotionRepository.save(promo);
         } else {
              throw new PaymentsException("There is no bank with the Id given");
