@@ -74,6 +74,7 @@ public class BankController {
         }
     }
 
+    // 11) Obtener un listado con el numero de clientes de cada banco
     @GetMapping("/members")
     public ResponseEntity<List<BankCustomerDTO>> getCustomersAmountPerBank() {
         try {
