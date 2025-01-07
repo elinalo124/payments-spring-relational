@@ -38,29 +38,61 @@ Las decisiones de las direcciones, el fetch type, el cascade type fueron basadas
 
 Dominio: Agregar una nueva PROMOCION de tipo financing a un BANCO
 
-|Caracteristica|Valor|Explicacion|
+|Caracteristica|Valor|Comentarios|
 |:----|:----|:----|
 |Owner|Bank| |
 |Inverse|Promotions| |
 |Relationship|One(Bank)ToMany(Promotions)| |
 |Nombre del atributo en el owner|promotions| |
-|Fetch Type|Lazy| |
-|Cascade Type|Merge| |
+|Fetch Type|Lazy|No siempre es necesario obtener las promociones correspondientes a un banco|
+|Cascade Type|Persist|Cuando se guarde un banco, todas sus promociones tambien seran guardadas|
+|Orphan Removal|TRUE|Si se elimina una promocion del banco, no tiene sentido seguir teniendo la promocion porque ya se invalida|
 
-
+---
 
 - CARD - BANK
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Card| |
+|Inverse|Bank| |
+|Relationship|Many(Card)ToOne(Bank)| |
+|Nombre del atributo en el owner|bank| |
+|Fetch Type|Eager|Solo se esta trayendo un banco por tarjeta, por eso es que computacionalmente no es caro. Ademas, saber el banco por el cual la tarjeta fue emitida, es una informacion crucial.|
+|Cascade Type|None|Para evitar cascadeos innecesarios, se utiliza None. Ya que los bancos pueden existir independientemente y las tarjetas solo hacen una referencia hacia el banco|
+
+---
 
 - CARD - CUSTOMER
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Card| |
+|Inverse|Customer| |
+|Relationship|Many(Card)ToOne(Customer)| |
+|Nombre del atributo en el owner|cardHolder|Se respeta el nombre que aparece en la consigna del trabajo practico|
+|Fetch Type|Eager|Solo se esta trayendo un cliente por tarjeta, por eso es que computacionalmente no es caro. Ademas, saber a quien le pertenece cierta tarjeta, es una informacion importante.|
+|Cascade Type|None|Para evitar cascadeos innecesarios, se utiliza None. Ya que los clientes pueden existir independientemente y las tarjetas solo hacen una referencia hacia el cliente|
+
+---
 
 - PAYMENT SUMMARY - CARD
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Payment Summary| |
+|Inverse|Card| |
+|Relationship|Many(PaymentSummary)ToOne(Card)| |
+|Nombre del atributo en el owner|card| |
+|Fetch Type|Eager|Cuando un cliente pide el resumen, es normal que aparezca la tarjeta con la que fue realizada el pago en el mismo resumen|
+|Cascade Type|None|Para evitar cascadeos innecesarios, se utiliza None. Ya que las tarjetas pueden existir independientemente y los resumenes solo hacen una referencia hacia la tarjeta|
+
+---
 
 - PAYMENT SUMMARY - QUOTA
 
 Dominio: Generar el total de pago de un mes dado, informando las compras correspondientes
+
 
 
 
