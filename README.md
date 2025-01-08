@@ -93,14 +93,33 @@ Dominio: Agregar una nueva PROMOCION de tipo financing a un BANCO
 
 Dominio: Generar el total de pago de un mes dado, informando las compras correspondientes
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Payment Summary| |
+|Inverse|Quota| |
+|Relationship|One(PaymentSummary)ToMany(Quota)| |
+|Nombre del atributo en el owner|quotasPayments|Se respeta el nombre que aparece en la consigna del trabajo practico|
+|Fetch Type|Eager|Debido a que el dominio require de la obtencion de las compras correspondientes a un resumen.|
+|Cascade Type|None|No es necesario que las operaciones sobre PaymentSummary afecten a Quota|
+|Dominio|Generar el total de pago de un mes dado, informando las compras correspondientes| |
 
-
+---
 
 - PAYMENT SUMMARY - PURCHASE SINGLE PAYMENT
 
 Dominio: Generar el total de pago de un mes dado, informando las compras correspondientes
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Payment Summary| |
+|Inverse|Purchase Single Payment| |
+|Relationship|One(PaymentSummary)ToMany(PuchaseSinglePayment)| |
+|Nombre del atributo en el owner|cashPayments|Se respeta el nombre que aparece en la consigna del trabajo practico|
+|Fetch Type|Eager|Debido a que el dominio require de la obtencion de las compras correspondientes a un resumen.|
+|Cascade Type|None|No es necesario que las operaciones sobre PaymentSummary afecten a Quota|
+|Dominio|Generar el total de pago de un mes dado, informando las compras correspondientes| |
 
+---
 
 ### 1b. Relaciones bidireccionales
 
@@ -108,9 +127,34 @@ Dominio: Generar el total de pago de un mes dado, informando las compras corresp
 
 Dominio: Obtener un listado con el numero de clientes de cada banco
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Bank| |
+|Inverse|Customer| |
+|Relationship|Many(Bank)ToMany(Customer)| |
+|Nombre del atributo en el owner|members|Se respeta el nombre que aparece en la consigna del trabajo practico|
+|Nombre del atributo en el inverse|banks| |
+|Fetch Type|Lazy|Para evitar cargar datos innecesarios cuando lo unico que se require es contar los clientes de cada banco|
+|Cascade Type|Merge|Se evita la utilizacion de CascadeType.REMOVE porque en una relacion @ManyToMany podria eliminar a los clientes de otros bancos. Ambas entitdades tienen ciclos de vida independientes y se podria usar PERSIST o MERGE para simplificar operaciones. Como muy rara vez se crean bancos con sus customers a la misma vez, utilizamos MERGE para evitar tener que actualizar los cambios en el Customer en el caso de que haya un cambio en el Bank|
+
+
+---
+
 - PURCHASE - CARD
 
 Dominio: Obtener la informacion de las 10 tarjetas con mas compras.
+
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Purchase| |
+|Inverse|Card| |
+|Relationship|Many(Purchase)ToOne(Card)| |
+|Nombre del atributo en el owner|card| |
+|Nombre del atributo en el inverse|purchases| |
+|Fetch Type|None (Eager)|Es comun obtener la informacion de la tarjeta cuando se quiere acceder a la infomacion de una compra|
+|Cascade Type|None|Se evita CascadeType.REMOVE para no borrar accidentalmente tarjetas al eliminar compras. Tampoco tiene sentido que las otras operaciones como MERGE, REFRESH, PERSIST o DETACH se cascadeen a las tarjetas. Por eso es que se elije None|
+
+---
 
 - PUCHASE - PROMOTION
 
@@ -118,10 +162,37 @@ Dominio 1: Eliminar una promocion a traves de su codigo tener en cuenta que esta
 
 Dominio 2: Obtener la promocion mas utilizada en las compras registradas
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Purchase| |
+|Inverse|Promotion| |
+|Relationship|Many(Purchase)ToOne(Promotion)| |
+|Nombre del atributo en el owner|validPromotion|Se respeta el nombre que aparece en la consigna del trabajo practico|
+|Nombre del atributo en el inverse|purchases| |
+|Fetch Type|Eager|Por defecto, las relaciones @ManyToOne suelen ser EAGER, lo cual esta bien en este caso, porque generalmente se necesita cargar la promocion asociada a una compra|
+|Cascade Type|Merge|No se debe elejir REMOVE, ya que el requerimiento implica eliminar una compra por su codigo, no mediante las compras asociadas. Lo mas adecuado es MERGE o PERSIST, para que los cambios en Promotion se reflejen correctamente en las compras al actualizar las entidades|
+
+
+---
+
 - PURCHASE MONTHLY PAYMENTS - QUOTA
 
 Dominio: Obtener la informacion de una compra, incluyendo el listado de cuotas si esta posee
 
+|Caracteristica|Valor|Comentarios|
+|:----|:----|:----|
+|Owner|Purchase Monthly Payments| |
+|Inverse|Quota| |
+|Relationship|One(PurchaseMonthlyPayments)ToMany(Quota)| |
+|Nombre del atributo en el owner|quotas| |
+|Nombre del atributo en el inverse|purchase| |
+|Fetch Type|Eager|En relaciones @OneToMany es mejor utiizar LAZY para evitar cargar todas las cuotas en el caso de que sean numerosas. Sin embargo, debido a que el dominio pide que se pueda obtener la informacion de una compra e incluir sus cuotas si esta posee, se termino eligiendo EAGER|
+|Cascade Type|All|Las cuotas estan directamente relacionadas al PurchaseMonthlyPayments, y es por eso que todas las operaciones realizadas sobre una compra con cuotas (PERSIST, MERGE, REMOVE, REFRESH, DETACH), se deben reflejar automaticamente en las cuotas asociadas.|
+|Orphan removal|TRUE|Esto asegura que las cuotas se eliminen automaticamente cuando sean eliminadas de la lista de cuotas de una compra.|
+
+
+
+---
 
 ### 1c. Relaciones parent-children
 
