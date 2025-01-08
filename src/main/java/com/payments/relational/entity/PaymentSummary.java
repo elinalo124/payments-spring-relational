@@ -37,7 +37,7 @@ public class PaymentSummary {
     @Column(name = "total_price")
     private float totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Card card;
 
     @OneToMany(fetch = FetchType.EAGER)

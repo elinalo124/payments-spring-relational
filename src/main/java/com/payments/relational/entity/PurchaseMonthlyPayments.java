@@ -16,7 +16,7 @@ public class PurchaseMonthlyPayments extends Purchase{
     @Column(name = "number_of_quotas", nullable = false)
     private int numberOfQuotas;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "purchase")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "purchase")
     @JsonManagedReference
     private Set<Quota> quotas;
 

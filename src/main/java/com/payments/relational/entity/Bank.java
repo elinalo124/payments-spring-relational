@@ -36,7 +36,7 @@ public class Bank {
     @NonNull
     private String telephone;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "bank_customer",
             joinColumns = @JoinColumn(name = "bank_id", referencedColumnName = "id"),
@@ -45,7 +45,7 @@ public class Bank {
     @JsonManagedReference
     private Set<Customer> members = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<Promotion> promotions;
 
     public void addCustomer(Customer customer) {
