@@ -1,6 +1,7 @@
 package com.payments.relational.controller;
 
 
+import com.payments.relational.dto.FinancingDTO;
 import com.payments.relational.entity.Discount;
 import com.payments.relational.entity.Financing;
 import com.payments.relational.entity.Promotion;
@@ -32,25 +33,25 @@ public class PromotionController {
         return ResponseEntity.ok(promotions);
     }
 
-   @PostMapping("/discount")
-    public ResponseEntity<Promotion> createDiscountPromotion(
-            @RequestParam Long bankId,
-            @RequestBody Discount promotion
-    ) {
-       try {
-           Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
-           return ResponseEntity.ok().body(savedPromotion);
-       } catch (Exception e) {
-           logger.error("There was a error saving the promotion information", e);
-           return ResponseEntity.badRequest().build();
-       }
-    }
+//   @PostMapping("/discount")
+//    public ResponseEntity<Promotion> createDiscountPromotion(
+//            @RequestParam Long bankId,
+//            @RequestBody Discount promotion
+//    ) {
+//       try {
+//           Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
+//           return ResponseEntity.ok().body(savedPromotion);
+//       } catch (Exception e) {
+//           logger.error("There was a error saving the promotion information", e);
+//           return ResponseEntity.badRequest().build();
+//       }
+//    }
 
     // 1) Agregar una promocion de tipo Financing a un banco dado
     @PostMapping("/financing")
     public ResponseEntity<Promotion> createFinancingPromotion(
             @RequestParam Long bankId,
-            @RequestBody Financing promotion
+            @RequestBody FinancingDTO promotion
     ) {
         try {
             Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);

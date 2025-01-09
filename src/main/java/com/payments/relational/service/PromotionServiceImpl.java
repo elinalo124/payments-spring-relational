@@ -1,10 +1,13 @@
 package com.payments.relational.service;
 
+import com.payments.relational.dto.FinancingDTO;
 import com.payments.relational.entity.Bank;
+import com.payments.relational.entity.Financing;
 import com.payments.relational.entity.Promotion;
 import com.payments.relational.entity.Purchase;
 import com.payments.relational.exception.PaymentsException;
 import com.payments.relational.repository.BankRepository;
+import com.payments.relational.repository.FinancingRepository;
 import com.payments.relational.repository.PromotionRepository;
 import com.payments.relational.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +21,19 @@ public class PromotionServiceImpl implements PromotionService {
     private final PromotionRepository promotionRepository;
     private final BankRepository bankRepository;
     private final PurchaseRepository purchaseRepository;
+    private final FinancingRepository financingRepository;
 
     @Autowired
     public PromotionServiceImpl(
             PromotionRepository promotionRepository,
             BankRepository bankRepository,
-            PurchaseRepository purchaseRepository
+            PurchaseRepository purchaseRepository,
+            FinancingRepository financingRepository
     ) {
         this.promotionRepository = promotionRepository;
         this.bankRepository = bankRepository;
         this.purchaseRepository = purchaseRepository;
+        this.financingRepository = financingRepository;
     }
 
     @Override
@@ -36,14 +42,24 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public Promotion savePromotion(Long bankId, Promotion promo) {
+    public Promotion savePromotion(Long bankId, FinancingDTO promo) {
         Optional<Bank> bankOptional= bankRepository.findById(bankId);
          if (bankOptional.isPresent()) {
              Bank bank = bankOptional.get();
-             Promotion newPromo = promotionRepository.save(promo);
-             bank.addPromo(newPromo);
+             Financing newPromo = new Financing();
+             newPromo.setCode(promo.getCode());
+             newPromo.setPromotionTitle(promo.getPromotionTitle());
+             newPromo.setNameStore(promo.getNameStore());
+             newPromo.setCuitStore(promo.getCuitStore());
+             newPromo.setValidityStartDate(promo.getValidityStartDate());
+             newPromo.setValidityEndDate(promo.getValidityEndDate());
+             newPromo.setComments(promo.getComments());
+             newPromo.setNumberOfQuotas(promo.getNumberOfQuotas());
+             newPromo.setInterest(promo.getInterest());
+             Financing savedPromo = promotionRepository.save(newPromo);
+             bank.addPromo(savedPromo);
              bankRepository.save(bank);
-             return promotionRepository.save(promo);
+             return savedPromo;
         } else {
              throw new PaymentsException("There is no bank with the Id given");
          }
