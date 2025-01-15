@@ -28,11 +28,9 @@ After running the application
 
 ## Informe
 
-### 1. Relaciones
-
 Las decisiones de las direcciones, el fetch type, el cascade type fueron basadas en el dominio de la aplicacion.
 
-#### 1a. Relaciones unidireccionales
+#### 1 Relaciones unidireccionales
 
 - BANK - PROMOTION
 
@@ -121,7 +119,7 @@ Dominio: Generar el total de pago de un mes dado, informando las compras corresp
 
 ---
 
-### 1b. Relaciones bidireccionales
+### 2. Relaciones bidireccionales
 
 - BANK - CUSTOMER
 
@@ -194,21 +192,18 @@ Dominio: Obtener la informacion de una compra, incluyendo el listado de cuotas s
 
 ---
 
-### 1c. Relaciones parent-children
+### 3. Relaciones parent-children
 
 - Financing y Discount son hijos de Promotion.
 - Purchase Monthly Payments y Purchase Single Payment son hijos de Purchase.
 
-### 2. Entidades
+### 4. Transacciones
 
-### 3. Transacciones
+De las operaciones requeridas en el trabajo practico, solo 3 de ellas escriben en la base de datos, el resto son solo lecturas.
 
-3
-
-## Promotions
-- *InheritanceType.SINGLE_TABLE* Fue seleccionada para evitar joins a la hora de recuperar las entidades
--  Relations:
-  - Promotion -> Bank
-    - Type: Many to One, fetchtype: yo escogeri lazy, por perfomance ya que no siempre que se haga fetch del banco se necita inmediatamente la información de las promociones, Ownership: Bank, 
-
-
+- Agregar una nueva promocion de tipo Financing a un banco dado.
+  - Es necesario utilizar la anotacion @Transactional debido a que se estan afectando 2 entidades (Promotion y Bank) a la misma vez. Si no se utiliza la anotacion, es posible que solo se guarde el cambio en Promotion, presentando una inconsistencia en los datos. Ademas, no se puede aprovechar las definiciones de Cascade, ya que el owner de la relacion es Bank, y no Promotion
+- Extender el tiempo de validez de una promocion.
+  - No es necesario utiizar la anotacion @Transactional debido a que solo se esta cambiando el valor de una propiedad de la entidad.
+- Eliminar una promocion a traves de su codigo.
+  - Es necesario utilizar la anotacion @Transactional debido a que se estan modificando 2 entidades (Purchase y Promotion) a la misma vez. Si no se utiliza la anotacion, es posible que solo se guarde el cambio en los Purchases, presentando una inconsistencia en los datos. Ademas, no se puede aprovechar las definiciones de Cascade, ya que el owner de la relacion es Purchase, y no Promotion

@@ -87,6 +87,9 @@ public class PromotionServiceImpl implements PromotionService {
         }
     }
 
+    // 6) Eliminar una promocion a traves de su codigo
+    // tener en cuenta que esta puede haber sido aplicada a alguna compra
+    @Transactional
     @Override
     public String removePromotionByCode(String promotionCode) {
         Optional<Promotion> promotionOptional = promotionRepository.findByCode(promotionCode);
