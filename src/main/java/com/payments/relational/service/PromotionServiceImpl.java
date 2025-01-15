@@ -12,6 +12,8 @@ import com.payments.relational.repository.PromotionRepository;
 import com.payments.relational.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +43,8 @@ public class PromotionServiceImpl implements PromotionService {
         return promotionRepository.findAll();
     }
 
+    // 1) Agregar una promocion de tipo Financing a un banco dado
+    @Transactional
     @Override
     public Promotion savePromotion(Long bankId, FinancingDTO promo) {
         Optional<Bank> bankOptional= bankRepository.findById(bankId);
@@ -65,6 +69,7 @@ public class PromotionServiceImpl implements PromotionService {
          }
     }
 
+    // 2) Extender el tiempo de validez de una promocion
     @Override
      public Promotion extendPromotion(Long promoId, LocalDate newDate) {
         Optional<Promotion> optionalPromo = promotionRepository.findById(promoId);
