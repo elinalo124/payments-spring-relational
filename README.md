@@ -1,36 +1,35 @@
 # payments-spring-relational
 Springboot + Hibernate + MySQL
 
+## Autores
 
-### Missing tasks
-* validar que al agregar una tarjeta que el customer sea cliente del banco, de lo contrario arrojar el errror o agregarlo al banco
-
-
+- Carolina Chavez
+- Elina Lo
 
 ## Set up
 
-### 1. Install JDK
-Open terminal and run 
+### 1. Instalar JDK
+Abrir la terminal y correr el siguiente comando
 ```shell
 brew install openjdk@17
 ```
 
-### 2. H2 Database set up
-After running the application 
-1. Open the H2 terminal http://localhost:8080/h2-console/
-2. Connect to the application using the JDBC URL: jdbc:h2:mem:paymentsdb
+### 2. Configurar la base de datos H2
+Luego de correr la aplicacion:
+1. Abrir la terminal de H2 http://localhost:8080/h2-console/
+2. Conectarse a la base de datos de la aplicacion utilizando el JDBC URL: jdbc:h2:mem:paymentsdb
 
 
 ### 3. Test the Setup
 
-1. Restart your Spring Boot application.
-2.	If everything is configured correctly, the application should connect to MySQL and create tables as needed.
+1. Reiniciar la aplicacion
+2. Si la configuracion fue correcta, la aplicacion deberia conectarse a la base de datos H2 y crear las tablas necesarias.
 
 ## Informe
 
 Las decisiones de las direcciones, el fetch type, el cascade type fueron basadas en el dominio de la aplicacion.
 
-#### 1 Relaciones unidireccionales
+### 1 Relaciones unidireccionales
 
 - BANK - PROMOTION
 
@@ -207,3 +206,10 @@ De las operaciones requeridas en el trabajo practico, solo 3 de ellas escriben e
   - No es necesario utiizar la anotacion @Transactional debido a que solo se esta cambiando el valor de una propiedad de la entidad.
 - Eliminar una promocion a traves de su codigo.
   - Es necesario utilizar la anotacion @Transactional debido a que se estan modificando 2 entidades (Purchase y Promotion) a la misma vez. Si no se utiliza la anotacion, es posible que solo se guarde el cambio en los Purchases, presentando una inconsistencia en los datos. Ademas, no se puede aprovechar las definiciones de Cascade, ya que el owner de la relacion es Purchase, y no Promotion
+
+### 5. Prueba de endpoints
+Para probar los endpoints que muestran los mapeos se compartira la collecion *Payments* utilizdas en postman.
+
+[Postman Payments](https://cloudy-capsule-99776.postman.co/workspace/Team-Workspace~1899ec8f-24d7-4ca6-8daa-0eff5d03605e/collection/27249426-c3b68fbd-1365-46bb-b9fc-9e461ca9208c?action=share&creator=40503936&active-environment=40503936-96262f85-5524-42ca-8f10-2bff25f80ff3)
+
+
